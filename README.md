@@ -1,5 +1,7 @@
 **Special thanks and specific appreciation to [Nuno Maduro](https://x.com/enunomaduro)**
 
+**Inspired by [laravel-starter-kit-inertia-react](https://github.com/nunomaduro/laravel-starter-kit-inertia-react)**
+
 **Laravel Starter Kit (Inertia & Vue)** is an ultra-strict, type-safe [Laravel](https://laravel.com) skeleton engineered for developers who refuse to compromise on code quality. This opinionated starter kit enforces rigorous development standards through meticulous tooling configuration and architectural decisions that prioritize type safety, immutability, and fail-fast principles.
 
 ## Why This Starter Kit?
@@ -81,4 +83,4 @@ You should see 100% test coverage and all quality checks passing.
 
 ## License
 
-**Laravel Starter Kit Inertia Vue** was created by **[GrnSpc](https://x.com/GrnspcDev)** under the **[MIT license](https://opensource.org/licenses/MIT)**.
+**Laravel Starter Kit Inertia Vue** was created by **[Márcio Nunes](https://github.com/marciano0695)** under the **[MIT license](https://opensource.org/licenses/MIT)**.

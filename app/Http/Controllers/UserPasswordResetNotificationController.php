@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateUserPasswordResetNotification;
+use App\Actions\User\CreateUserPasswordResetNotification;
 use App\Http\Requests\CreateUserPasswordResetNotificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

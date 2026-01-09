@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateUser;
-use App\Actions\DeleteUser;
+use App\Actions\User\CreateUser;
+use App\Actions\User\DeleteUser;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 use App\Models\User;
@@ -27,7 +27,8 @@ final readonly class UserController
         /** @var array<string, mixed> $attributes */
         $attributes = $request->safe()->except('password');
 
-        $user = $action->handle($attributes,
+        $user = $action->handle(
+            $attributes,
             $request->string('password')->value(),
         );
 

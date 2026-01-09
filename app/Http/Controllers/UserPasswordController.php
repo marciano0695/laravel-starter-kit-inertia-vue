@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreateUserPassword;
-use App\Actions\UpdateUserPassword;
+use App\Actions\User\CreateUserPassword;
+use App\Actions\User\UpdateUserPassword;
 use App\Http\Requests\CreateUserPasswordRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Models\User;
