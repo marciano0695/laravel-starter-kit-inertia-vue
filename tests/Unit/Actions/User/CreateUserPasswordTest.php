@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Actions\CreateUserPassword;
+use App\Actions\User\CreateUserPassword;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Event;

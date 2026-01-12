@@ -13,7 +13,7 @@
     "@antfu/eslint-config": "^6.7.3",
     "@eslint/js": "^9.39.2",
     "@laravel/vite-plugin-wayfinder": "^0.1.7",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.6",
     "@vue/eslint-config-typescript": "^14.6.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
