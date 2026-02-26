@@ -2,7 +2,6 @@
 import { Form } from "@inertiajs/vue3";
 import { ref } from "vue";
 
-import UserController from "@/actions/App/Http/Controllers/UserController";
 // Components
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
@@ -19,6 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import UserController from "@/wayfinder/App/Http/Controllers/UserController";
 
 const passwordInput = ref<InstanceType<typeof Input> | null>(null);
 </script>

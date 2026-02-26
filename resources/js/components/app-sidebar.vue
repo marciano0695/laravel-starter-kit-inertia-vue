@@ -16,7 +16,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { dashboard } from "@/routes";
+import { dashboard } from "@/wayfinder/routes";
 
 import AppLogo from "./app-logo.vue";
 

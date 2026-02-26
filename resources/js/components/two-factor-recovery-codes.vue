@@ -7,7 +7,7 @@ import AlertError from "@/components/alert-error.vue";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTwoFactorAuth } from "@/composables/use-two-factor-auth";
-import { regenerateRecoveryCodes } from "@/routes/two-factor";
+import { regenerateRecoveryCodes } from "@/wayfinder/routes/two-factor";
 
 const { recoveryCodesList, fetchRecoveryCodes, errors } = useTwoFactorAuth();
 const isRecoveryCodesVisible = ref<boolean>(false);

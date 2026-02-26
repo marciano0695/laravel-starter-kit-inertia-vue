@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { PinInput, PinInputGroup, PinInputSlot } from "@/components/ui/pin-input";
 import { useTwoFactorAuth } from "@/composables/use-two-factor-auth";
-import { confirm } from "@/routes/two-factor";
+import { confirm } from "@/wayfinder/routes/two-factor";
 
 interface Props {
   twoFactorEnabled: boolean;

@@ -11,8 +11,8 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import UserInfo from "@/components/user-info.vue";
-import { logout } from "@/routes";
-import { edit } from "@/routes/user-profile";
+import { logout } from "@/wayfinder/routes";
+import { edit } from "@/wayfinder/routes/user-profile";
 
 interface Props {
   user: User;
