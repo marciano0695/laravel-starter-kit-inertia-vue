@@ -7,7 +7,7 @@ import AppearanceTabs from "@/components/appearance-tabs.vue";
 import HeadingSmall from "@/components/heading-small.vue";
 import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
-import { edit } from "@/routes/appearance";
+import { edit } from "@/wayfinder/routes/appearance";
 
 const breadcrumbItems: BreadcrumbItem[] = [
   {

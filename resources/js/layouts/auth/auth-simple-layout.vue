@@ -2,7 +2,7 @@
 import { Link } from "@inertiajs/vue3";
 
 import AppLogoIcon from "@/components/app-logo-icon.vue";
-import { home } from "@/routes";
+import { home } from "@/wayfinder/routes";
 
 defineProps<{
   title?: string;

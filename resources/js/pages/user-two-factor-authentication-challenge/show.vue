@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PinInput, PinInputGroup, PinInputSlot } from "@/components/ui/pin-input";
 import AuthLayout from "@/layouts/auth-layout.vue";
-import { store } from "@/routes/two-factor/login";
+import { store } from "@/wayfinder/routes/two-factor/login";
 
 interface AuthConfigContent {
   title: string;

@@ -6,6 +6,7 @@ namespace App\Actions\User;
 
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use SensitiveParameter;
@@ -17,7 +18,7 @@ final readonly class CreateUserPassword
      */
     public function handle(array $credentials, #[SensitiveParameter] string $password): mixed
     {
-        return Password::reset(
+        return DB::transaction(fn (): mixed => Password::reset(
             $credentials,
             function (User $user) use ($password): void {
                 $user->update([
@@ -27,6 +28,6 @@ final readonly class CreateUserPassword
 
                 event(new PasswordReset($user));
             }
-        );
+        ));
     }
 }

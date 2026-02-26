@@ -4,7 +4,6 @@ import { ref } from "vue";
 
 import type { BreadcrumbItem } from "@/types";
 
-import UserPasswordController from "@/actions/App/Http/Controllers/UserPasswordController";
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
-import { edit } from "@/routes/password";
+import UserPasswordController from "@/wayfinder/App/Http/Controllers/UserPasswordController";
+import { edit } from "@/wayfinder/routes/password";
 
 const breadcrumbItems: BreadcrumbItem[] = [
   {

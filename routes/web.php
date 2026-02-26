@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserEmailResetNotificationController;
 use App\Http\Controllers\UserEmailVerificationController;
 use App\Http\Controllers\UserEmailVerificationNotificationController;
 use App\Http\Controllers\UserPasswordController;
-use App\Http\Controllers\UserPasswordResetNotificationController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserTwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
@@ -56,9 +56,9 @@ Route::middleware('guest')->group(function (): void {
         ->name('password.store');
 
     // User Email Reset Notification...
-    Route::get('forgot-password', [UserPasswordResetNotificationController::class, 'create'])
+    Route::get('forgot-password', [UserEmailResetNotificationController::class, 'create'])
         ->name('password.request');
-    Route::post('forgot-password', [UserPasswordResetNotificationController::class, 'store'])
+    Route::post('forgot-password', [UserEmailResetNotificationController::class, 'store'])
         ->name('password.email');
 
     // Session...

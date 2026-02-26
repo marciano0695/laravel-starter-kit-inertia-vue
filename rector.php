@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
+use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\Config\RectorConfig;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use RectorLaravel\Set\LaravelSetList;
@@ -22,6 +23,9 @@ return RectorConfig::configure()
         LaravelSetList::LARAVEL_IF_HELPERS,
         LaravelSetList::LARAVEL_LEGACY_FACTORIES_TO_CLASSES,
     ])
+    ->withImportNames(
+        removeUnusedImports: true,
+    )
     ->withComposerBased(laravel: true)
     ->withCache(
         cacheDirectory: '/tmp/rector',
@@ -38,6 +42,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         AddOverrideAttributeToOverriddenMethodsRector::class,
+        MakeInheritedMethodVisibilitySameAsParentRector::class,
     ])
     ->withPreparedSets(
         deadCode: true,

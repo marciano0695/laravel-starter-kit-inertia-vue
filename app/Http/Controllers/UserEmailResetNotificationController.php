@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-final readonly class UserPasswordResetNotificationController
+final readonly class UserEmailResetNotificationController
 {
     public function create(Request $request): Response
     {
-        return Inertia::render('user-password-reset-notification/create', [
+        return Inertia::render('user-email-reset-notification/create', [
             'status' => $request->session()->get('status'),
         ]);
     }

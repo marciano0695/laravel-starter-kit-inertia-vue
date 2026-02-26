@@ -2,11 +2,11 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "lucide-vue-next";
 
-import UserEmailVerificationNotificationController from "@/actions/App/Http/Controllers/UserEmailVerificationNotificationController";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layouts/auth-layout.vue";
-import { logout } from "@/routes";
+import UserEmailVerificationNotificationController from "@/wayfinder/App/Http/Controllers/UserEmailVerificationNotificationController";
+import { logout } from "@/wayfinder/routes";
 
 defineProps<{
   status?: string;

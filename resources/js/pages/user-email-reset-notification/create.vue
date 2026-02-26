@@ -2,14 +2,14 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "lucide-vue-next";
 
-import UserPasswordResetNotificationController from "@/actions/App/Http/Controllers/UserPasswordResetNotificationController";
 import InputError from "@/components/input-error.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
-import { login } from "@/routes";
+import UserEmailResetNotificationController from "@/wayfinder/App/Http/Controllers/UserEmailResetNotificationController";
+import { login } from "@/wayfinder/routes";
 
 defineProps<{
   status?: string;
@@ -25,7 +25,7 @@ defineProps<{
     </div>
 
     <div class="space-y-6">
-      <Form v-slot="{ errors, processing }" v-bind="UserPasswordResetNotificationController.store.form()">
+      <Form v-slot="{ errors, processing }" v-bind="UserEmailResetNotificationController.store.form()">
         <div class="grid gap-2">
           <Label for="email">Email address</Label>
           <Input id="email" type="email" name="email" autocomplete="off" autofocus placeholder="email@example.com" />

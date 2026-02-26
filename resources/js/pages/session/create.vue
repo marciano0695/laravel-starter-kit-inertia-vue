@@ -2,7 +2,6 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "lucide-vue-next";
 
-import SessionController from "@/actions/App/Http/Controllers/SessionController";
 import InputError from "@/components/input-error.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
-import { register } from "@/routes";
-import { request } from "@/routes/password";
+import SessionController from "@/wayfinder/App/Http/Controllers/SessionController";
+import { register } from "@/wayfinder/routes";
+import { request } from "@/wayfinder/routes/password";
 
 defineProps<{
   status?: string;

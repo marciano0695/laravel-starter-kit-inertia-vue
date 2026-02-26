@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useTwoFactorAuth } from "@/composables/use-two-factor-auth";
 import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
-import { disable, enable, show } from "@/routes/two-factor";
+import { disable, enable, show } from "@/wayfinder/routes/two-factor";
 
 interface Props {
   requiresConfirmation?: boolean;

@@ -19,13 +19,13 @@ export default antfu(
       "*{composer,package,tsconfig,components,pint,boost,mcp}.json",
       ".{cursor,github,junie}/*",
       "resources/js/components/ui/*",
-      "resources/js/actions/**",
       "vendor",
       "node_modules",
       "public",
       "bootstrap/ssr",
       "tailwind.config.js",
-      ".vscode/extensions.json"
+      ".vscode/extensions.json",
+      "resources/js/wayfinder/**",
     ],
   },
   {
