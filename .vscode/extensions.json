@@ -3,6 +3,7 @@
     "laravel.vscode-laravel",
     "bradlc.vscode-tailwindcss",
     "bmewburn.vscode-intelephense-client",
-    "vue.volar"
+    "vue.volar",
+    "xdebug.php-debug"
   ]
 }
