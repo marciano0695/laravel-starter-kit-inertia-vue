@@ -51,7 +51,7 @@ export default antfu(
       "perfectionist/sort-imports": [
         "error",
         {
-          tsconfigRootDir: ".",
+          tsconfig: { rootDir: "." },
         },
       ],
       "unicorn/filename-case": [
