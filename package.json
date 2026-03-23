@@ -25,7 +25,8 @@
     "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "dependencies": {
-    "@inertiajs/vue3": "^2.3.8",
+    "@inertiajs/vite": "^3.0.0-beta",
+    "@inertiajs/vue3": "^3.0.0-beta",
     "@tailwindcss/vite": "^4.1.18",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vueuse/core": "^14.1.0",
