@@ -1,10 +1,4 @@
 import { antfu } from "@antfu/eslint-config";
-import {
-  defineConfigWithVueTs,
-  vueTsConfigs,
-} from "@vue/eslint-config-typescript";
-import prettier from "eslint-config-prettier/flat";
-import vue from "eslint-plugin-vue";
 
 export default antfu(
   {
@@ -30,18 +24,8 @@ export default antfu(
   },
   {
     rules: {
-      "vue/max-attributes-per-line": [
-        "error",
-        {
-          singleline: {
-            max: 2,
-          },
-          multiline: {
-            max: 1,
-          },
-        },
-      ],
       "ts/no-redeclare": "off",
+      "ts/no-explicit-any": "off",
       // "ts/consistent-type-definitions": ["error", "type"],
       "no-console": ["warn"],
       "antfu/no-top-level-await": ["off"],
@@ -63,16 +47,4 @@ export default antfu(
       ],
     },
   },
-).append(
-  defineConfigWithVueTs(
-    vue.configs["flat/essential"],
-    vueTsConfigs.recommended,
-    {
-      rules: {
-        "vue/multi-word-component-names": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-      },
-    },
-    prettier,
-  ),
 );

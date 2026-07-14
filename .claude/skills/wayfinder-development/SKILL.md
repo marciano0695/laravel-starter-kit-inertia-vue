@@ -1,170 +1,80 @@
 ---
 name: wayfinder-development
-description: "Activates whenever working with Wayfinder-generated TypeScript — routes, models, enums, form requests, Inertia page props, shared data, broadcast channels/events, or environment variables. Use when importing from @/wayfinder/, syncing Laravel types to TypeScript, or keeping frontend and backend perfectly in sync."
+description: "Use this skill for Laravel Wayfinder which auto-generates typed functions for Laravel controllers and routes. ALWAYS use this skill when frontend code needs to call backend routes or controller actions. Trigger when: connecting any React/Vue/Svelte/Inertia frontend to Laravel controllers, routes, building end-to-end features with both frontend and backend, wiring up forms or links to backend endpoints, fixing route-related TypeScript errors, importing from @/actions or @/routes, or running wayfinder:generate. Use Wayfinder route functions instead of hardcoded URLs. Covers: wayfinder() vite plugin, .url()/.get()/.post()/.form(), query params, route model binding, tree-shaking. Do not use for backend-only task"
 license: MIT
 metadata:
   author: laravel
 ---
 
-# Wayfinder Development (Beta / next)
+# Wayfinder Development
 
 ## Documentation
 
 Use `search-docs` for detailed Wayfinder patterns and documentation.
 
-## Overview
-
-Wayfinder (beta) bridges your Laravel backend and TypeScript frontend by auto-generating fully-typed TypeScript from your Laravel code. All output lives under `resources/js/wayfinder` (alias `@/wayfinder`).
-
-Wayfinder generates TypeScript for:
-- **Routes & Controller Actions** — type-safe URL functions with parameter validation
-- **Named Routes** — access routes via Laravel route names
-- **Form Requests** — TypeScript types from validation rules
-- **Eloquent Models** — TypeScript interfaces with attributes and relationships
-- **PHP Enums** — TypeScript types and runtime constants
-- **Inertia Page Props** — types for Inertia page data
-- **Inertia Shared Data** — types for HandleInertiaRequests shared data
-- **Broadcast Channels** — type-safe channel name builders
-- **Broadcast Events** — typed WebSocket event payloads
-- **Environment Variables** — typed `import.meta.env` for `VITE_*` vars
-
 ## Quick Reference
 
-### Generate
+### Generate Routes
 
-Run after any PHP changes if the Vite plugin isn't running:
+Run after route changes if Vite plugin isn't installed:
 ```bash
 php artisan wayfinder:generate --no-interaction
 ```
+For form helpers, use `--with-form` flag:
+```bash
+php artisan wayfinder:generate --with-form --no-interaction
+```
 
-> `--with-form`, `--skip-actions`, `--skip-routes` flags are removed in the beta — configure via `config/wayfinder.php` instead.
-
-### Routes & Controller Actions
+### Import Patterns
 
 <!-- Controller Action Imports -->
 ```typescript
-import { PostController } from '@/wayfinder/App/Http/Controllers/PostController'
+// Named imports for tree-shaking (preferred)...
+import { show, store, update } from '@/actions/App/Http/Controllers/PostController'
 
-// Route object { url, method }
-PostController.index()                        // { url: '/posts', method: 'get' }
-PostController.show({ post: 1 })             // { url: '/posts/1', method: 'get' }
-
-// URL only
-PostController.show.url({ post: 42 })        // '/posts/42'
-
-// HTTP method variants
-PostController.index.get()
-PostController.update.patch({ post: 1 })
-PostController.destroy.delete({ post: 1 })
-
-// Form-safe (spoofs PUT/PATCH/DELETE via _method)
-PostController.update.form({ post: 1 })      // { action: '/posts/1?_method=PATCH', method: 'post' }
-
-// Query parameters
-PostController.index({ query: { page: 2 } })
-PostController.index({ mergeQuery: { page: 3, sort: null } }) // null removes param
+// Named route imports...
+import { show as postShow } from '@/routes/post'
 ```
 
-### Named Routes
+### Common Methods
 
+<!-- Wayfinder Methods -->
 ```typescript
-import posts from '@/wayfinder/routes/posts'
+// Get route object...
+show(1) // { url: "/posts/1", method: "get" }
 
-posts.index()            // { url: '/posts', method: 'get' }
-posts.show({ post: 1 }) // { url: '/posts/1', method: 'get' }
-```
+// Get URL string...
+show.url(1) // "/posts/1"
 
-### Enums
+// Specific HTTP methods...
+show.get(1)
+store.post()
+update.patch(1)
+destroy.delete(1)
 
-```typescript
-// Runtime constants
-import PostStatus from '@/wayfinder/App/Enums/PostStatus'
+// Form attributes for HTML forms...
+store.form() // { action: "/posts", method: "post" }
 
-PostStatus.Published  // 'published'
-if (post.status === PostStatus.Draft) { ... }
-
-// Type-checking (from types.d.ts)
-import { App } from '@/wayfinder/types'
-function setStatus(status: App.Enums.PostStatus) { ... }
-```
-
-### Models
-
-```typescript
-import { App } from '@/wayfinder/types'
-
-function displayUser(user: App.Models.User) {
-    console.log(user.name, user.email)
-}
-```
-
-### Form Request Types
-
-```typescript
-import { App } from '@/wayfinder/types'
-
-const form = useForm<App.Http.Controllers.PostController.Store.Request>()
-```
-
-### Inertia Page Props
-
-```vue
-<script setup lang="ts">
-import { Inertia } from '@/wayfinder/types'
-
-defineProps<Inertia.Pages.Dashboard>()
-// Inertia.Pages.Dashboard extends Inertia.SharedData automatically
-</script>
-```
-
-### Broadcast Channels & Events
-
-```typescript
-import { BroadcastChannels } from '@/wayfinder/broadcast-channels'
-import { App } from '@/wayfinder/types'
-
-Echo.private(BroadcastChannels.orders(orderId)).listen('OrderShipped', (e) => {
-    // e is App.Events.OrderShipped — fully typed
-    console.log(e.trackingNumber)
-})
-```
-
-### Environment Variables
-
-Wayfinder generates `vite-env.d.ts` — `VITE_*` vars in `.env` become typed on `import.meta.env`:
-```typescript
-const appName = import.meta.env.VITE_APP_NAME // TypeScript knows this is string
+// Query parameters...
+show(1, { query: { page: 1 } }) // "/posts/1?page=1"
 ```
 
 ## Wayfinder + Inertia
 
-Use `.form()` with the `<Form>` component:
+Use Wayfinder with the `<Form>` component:
+<!-- Wayfinder Form (Vue) -->
 ```vue
-<Form v-bind="PostController.store.form()"><input name="title" /></Form>
-```
-
-Or with `useForm`:
-```typescript
-form.submit(PostController.store())
+<Form v-bind="store.form()"><input name="title" /></Form>
 ```
 
 ## Verification
 
-1. Run `php artisan wayfinder:generate` to regenerate if Vite plugin isn't running
-2. Check TypeScript imports resolve under `@/wayfinder/`
-3. Verify `types.d.ts` contains expected model, enum, and Inertia namespaces
-
-## Breaking Changes from Previous Beta
-
-- Import path changed: `@/actions/` and `@/routes/` → `@/wayfinder/`
-- Controller imports are now namespace objects: `PostController.show()` not `{ show }`
-- `types.ts` renamed to `types.d.ts`
-- `--with-form`, `--skip-actions`, `--skip-routes` CLI flags removed — use `config/wayfinder.php`
-- Vite plugin: remove `routes`, `actions`, and `withForm` arguments
+1. Run `php artisan wayfinder:generate` to regenerate routes if Vite plugin isn't installed
+2. Check TypeScript imports resolve correctly
+3. Verify route URLs match expected paths
 
 ## Common Pitfalls
 
-- Using old `@/actions/` or `@/routes/` import paths instead of `@/wayfinder/`
-- Forgetting to regenerate after PHP model, enum, or route changes
-- Using CLI flags that no longer exist (`--with-form`, `--skip-actions`)
+- Using default imports instead of named imports (breaks tree-shaking)
+- Forgetting to regenerate after route changes
 - Not using type-safe parameter objects for route model binding

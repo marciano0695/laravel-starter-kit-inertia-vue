@@ -1,12 +1,11 @@
 {
-  "mcpServers": {
-    "laravel-boost": {
-      "command": "wsl",
-      "args": [
-        "/usr/bin/php8.4",
-        "/home/forge/code/laravel-starter-kit-inertia-vue/artisan",
-        "boost:mcp"
-      ]
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/usr/local/Cellar/php/8.5.3/bin/php",
+            "args": [
+                "/usr/local/var/www/marcio/laravel-starter-kit-inertia-vue/artisan",
+                "boost:mcp"
+            ]
+        }
     }
-  }
 }

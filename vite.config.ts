@@ -14,7 +14,9 @@ export default defineConfig({
     }),
     inertia(),
     tailwindcss(),
-    wayfinder(),
+    wayfinder({
+      command: "php -d memory_limit=512M artisan wayfinder:generate",
+    }),
     vue({
       template: {
         transformAssetUrls: {
