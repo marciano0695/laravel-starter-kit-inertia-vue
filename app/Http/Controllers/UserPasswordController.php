@@ -22,8 +22,8 @@ final readonly class UserPasswordController
     public function create(Request $request): Response
     {
         return Inertia::render('user-password/create', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
+            'email' => (string) $request->email,
+            'token' => (string) $request->route('token'),
         ]);
     }
 

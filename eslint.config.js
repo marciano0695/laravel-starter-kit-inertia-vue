@@ -26,6 +26,8 @@ export default antfu(
     rules: {
       "ts/no-redeclare": "off",
       "ts/no-explicit-any": "off",
+      "vue/html-self-closing": "off",
+      "vue/singleline-html-element-content-newline": "off",
       // "ts/consistent-type-definitions": ["error", "type"],
       "no-console": ["warn"],
       "antfu/no-top-level-await": ["off"],
