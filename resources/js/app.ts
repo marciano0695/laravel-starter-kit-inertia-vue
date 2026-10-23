@@ -3,6 +3,7 @@ import { i18nVue } from "laravel-vue-i18n";
 
 import "../css/app.css";
 import { initializeTheme } from "./composables/use-appearance";
+import { initializeFlashToast } from "./lib/flash-toast";
 
 type LanguageFile = { default: Record<string, string> };
 
@@ -34,3 +35,6 @@ void createInertiaApp({
 
 // This will set light / dark mode on page load...
 initializeTheme();
+
+// This will listen for flash toast data from the server...
+initializeFlashToast();

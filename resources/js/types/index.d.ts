@@ -34,3 +34,8 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface FlashToast {
+  type: "success" | "info" | "warning" | "error";
+  message: string;
+}

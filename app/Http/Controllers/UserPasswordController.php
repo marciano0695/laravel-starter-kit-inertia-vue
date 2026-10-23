@@ -22,7 +22,7 @@ final readonly class UserPasswordController
     public function create(Request $request): Response
     {
         return Inertia::render('user-password/create', [
-            'email' => (string) $request->email,
+            'email' => $request->string('email')->value(),
             'token' => (string) $request->route('token'),
         ]);
     }
@@ -52,6 +52,11 @@ final readonly class UserPasswordController
     public function update(UpdateUserPasswordRequest $request, #[CurrentUser] User $user, UpdateUserPassword $action): RedirectResponse
     {
         $action->handle($user, $request->string('password')->value());
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Password updated.'),
+        ]);
 
         return back();
     }
