@@ -172,6 +172,7 @@ watch(
           <Form
             v-slot="{ errors: formErrors, processing }"
             v-bind="confirm.form()"
+            error-bag="confirmTwoFactorAuthentication"
             reset-on-error
             @finish="code = []"
             @success="isOpen = false"
@@ -184,7 +185,7 @@ watch(
                     <PinInputSlot v-for="(id, index) in 6" :key="id" autofocus :index="index" :disabled="processing" />
                   </PinInputGroup>
                 </PinInput>
-                <InputError :message="formErrors?.confirmTwoFactorAuthentication?.code" />
+                <InputError :message="formErrors?.code" />
               </div>
 
               <div class="flex w-full items-center space-x-5">

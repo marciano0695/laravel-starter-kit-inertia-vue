@@ -4,16 +4,18 @@ import { i18nVue } from "laravel-vue-i18n";
 import "../css/app.css";
 import { initializeTheme } from "./composables/use-appearance";
 
+type LanguageFile = { default: Record<string, string> };
+
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
-createInertiaApp({
+void createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
   withApp(app, { ssr }) {
     // Client side
     if (!ssr) {
       app.use(i18nVue, {
         resolve: async (lang: string) => {
-          const langs = import.meta.glob("../../lang/*.json");
+          const langs = import.meta.glob<LanguageFile>("../../lang/*.json");
           return await langs[`../../lang/${lang}.json`]();
         },
       });
@@ -22,8 +24,8 @@ createInertiaApp({
       app.use(i18nVue, {
         lang: "pt",
         resolve: (lang: string) => {
-          const langs = import.meta.glob("../../lang/*.json", { eager: true });
-          return (langs[`../../lang/${lang}.json`] as { default: unknown }).default;
+          const langs = import.meta.glob<LanguageFile>("../../lang/*.json", { eager: true });
+          return langs[`../../lang/${lang}.json`].default;
         },
       });
     }

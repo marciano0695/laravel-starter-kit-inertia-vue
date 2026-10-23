@@ -24,7 +24,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import UserMenuContent from "@/components/user-menu-content.vue";
 import { getInitials } from "@/composables/use-initials";
 import { toUrl, urlIsActive } from "@/lib/utils";
-import { dashboard } from "@/routes";
+import { dashboard } from "@/wayfinder/routes";
 
 interface Props {
   breadcrumbs?: BreadcrumbItem[];
