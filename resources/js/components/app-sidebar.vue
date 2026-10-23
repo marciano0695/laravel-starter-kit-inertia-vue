@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from "@inertiajs/vue3";
-import { BookOpen, Folder, LayoutGrid } from "lucide-vue-next";
+import { BookOpen, Folder, LayoutGrid } from "@lucide/vue";
 
 import type { NavItem } from "@/types";
 

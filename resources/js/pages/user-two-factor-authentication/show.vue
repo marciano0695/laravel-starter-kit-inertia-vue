@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form, Head } from "@inertiajs/vue3";
-import { ShieldBan, ShieldCheck } from "lucide-vue-next";
+import { ShieldBan, ShieldCheck } from "@lucide/vue";
 import { onUnmounted, ref } from "vue";
 
 import type { BreadcrumbItem } from "@/types";

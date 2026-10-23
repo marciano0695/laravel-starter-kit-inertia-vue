@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Form, Head } from "@inertiajs/vue3";
-import { LoaderCircle } from "lucide-vue-next";
+import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
 import TextLink from "@/components/text-link.vue";

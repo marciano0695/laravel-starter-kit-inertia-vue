@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Form } from "@inertiajs/vue3";
+import { Check, Copy, Loader2, ScanLine } from "@lucide/vue";
 import { useClipboard } from "@vueuse/core";
-import { Check, Copy, Loader2, ScanLine } from "lucide-vue-next";
 import { computed, nextTick, ref, watch } from "vue";
 
 import AlertError from "@/components/alert-error.vue";
