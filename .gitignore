@@ -29,3 +29,4 @@ yarn-error.log
 /.zed
 /tmp/
 lang/php_*.json
+/tests/Browser/Screenshots

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Fortify\Features;
 
 it('shares app name from config', function (): void {
     $middleware = new HandleInertiaRequests();
@@ -90,4 +91,35 @@ it('includes parent shared data', function (): void {
 
     // Parent Inertia middleware shares 'errors' by default
     expect($shared)->toHaveKey('errors');
+});
+
+it('shares passkey routes when passkeys are enabled', function (): void {
+    $middleware = new HandleInertiaRequests();
+
+    $request = Request::create('/', 'GET');
+
+    $shared = $middleware->share($request);
+
+    expect($shared['passkeyRoutes'])->toBe([
+        'login' => [
+            'options' => route('passkey.login-options'),
+            'submit' => route('passkey.login'),
+        ],
+        'confirm' => [
+            'options' => route('passkey.confirm-options'),
+            'submit' => route('passkey.confirm'),
+        ],
+    ]);
+});
+
+it('shares no passkey routes when passkeys are disabled', function (): void {
+    config(['fortify.features' => [Features::twoFactorAuthentication()]]);
+
+    $middleware = new HandleInertiaRequests();
+
+    $request = Request::create('/', 'GET');
+
+    $shared = $middleware->share($request);
+
+    expect($shared['passkeyRoutes'])->toBeNull();
 });

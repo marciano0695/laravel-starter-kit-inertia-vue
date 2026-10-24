@@ -1,7 +1,7 @@
 {
     "mcpServers": {
         "laravel-boost": {
-            "command": "/usr/local/Cellar/php/8.5.3/bin/php",
+            "command": "/usr/local/Cellar/php/8.5.12/bin/php",
             "args": [
                 "/usr/local/var/www/marcio/laravel-starter-kit-inertia-vue/artisan",
                 "boost:mcp"

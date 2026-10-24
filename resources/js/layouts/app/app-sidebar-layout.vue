@@ -5,6 +5,7 @@ import AppContent from "@/components/app-content.vue";
 import AppShell from "@/components/app-shell.vue";
 import AppSidebarHeader from "@/components/app-sidebar-header.vue";
 import AppSidebar from "@/components/app-sidebar.vue";
+import { Toaster } from "@/components/ui/sonner";
 
 interface Props {
   breadcrumbs?: BreadcrumbItemType[];
@@ -22,5 +23,6 @@ withDefaults(defineProps<Props>(), {
       <AppSidebarHeader :breadcrumbs="breadcrumbs" />
       <slot />
     </AppContent>
+    <Toaster />
   </AppShell>
 </template>

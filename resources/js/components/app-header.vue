@@ -2,7 +2,7 @@
 import type { InertiaLinkProps } from "@inertiajs/vue3";
 
 import { Link, usePage } from "@inertiajs/vue3";
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-vue-next";
+import { BookOpen, Folder, LayoutGrid, Menu, Search } from "@lucide/vue";
 import { computed } from "vue";
 
 import type { BreadcrumbItem, NavItem } from "@/types";
@@ -24,7 +24,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import UserMenuContent from "@/components/user-menu-content.vue";
 import { getInitials } from "@/composables/use-initials";
 import { toUrl, urlIsActive } from "@/lib/utils";
-import { dashboard } from "@/routes";
+import { dashboard } from "@/wayfinder/routes";
 
 interface Props {
   breadcrumbs?: BreadcrumbItem[];

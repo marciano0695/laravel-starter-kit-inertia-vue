@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Form } from "@inertiajs/vue3";
-import { Eye, EyeOff, LockKeyhole, RefreshCw } from "lucide-vue-next";
+import { Eye, EyeOff, LockKeyhole, RefreshCw } from "@lucide/vue";
 import { nextTick, onMounted, ref } from "vue";
 
 import AlertError from "@/components/alert-error.vue";

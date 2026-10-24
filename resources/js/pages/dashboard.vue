@@ -8,18 +8,25 @@ import { dashboard } from "@/wayfinder/routes";
 
 import PlaceholderPattern from "../components/placeholder-pattern.vue";
 
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Dashboard",
-    href: dashboard().url,
-  },
-];
+defineOptions({
+  layout: [
+    AppLayout,
+    {
+      breadcrumbs: [
+        {
+          title: "Dashboard",
+          href: dashboard().url,
+        },
+      ] satisfies BreadcrumbItem[],
+    },
+  ],
+});
 </script>
 
 <template>
-  <Head title="Dashboard" />
+  <div class="contents">
+    <Head title="Dashboard" />
 
-  <AppLayout :breadcrumbs="breadcrumbs">
     <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
       <div class="grid auto-rows-min gap-4 md:grid-cols-3">
         <div
@@ -44,5 +51,5 @@ const breadcrumbs: BreadcrumbItem[] = [
         <PlaceholderPattern />
       </div>
     </div>
-  </AppLayout>
+  </div>
 </template>

@@ -7,11 +7,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserEmailResetNotificationController;
 use App\Http\Controllers\UserEmailVerificationController;
 use App\Http\Controllers\UserEmailVerificationNotificationController;
+use App\Http\Controllers\UserPasskeyController;
 use App\Http\Controllers\UserPasswordController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserTwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Fortify\Features;
 
 Route::get('/', fn () => Inertia::render('welcome'))->name('home');
 
@@ -24,7 +26,8 @@ Route::middleware('auth')->group(function (): void {
     Route::delete('user', [UserController::class, 'destroy'])->name('user.destroy');
 
     // User Profile...
-    Route::redirect('settings', '/settings/profile');
+    // GET only: Route::redirect() also matches QUERY, which Wayfinder can't type yet (laravel/wayfinder#326).
+    Route::get('settings', fn () => to_route('user-profile.edit'));
     Route::get('settings/profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
     Route::patch('settings/profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 
@@ -40,6 +43,10 @@ Route::middleware('auth')->group(function (): void {
     // User Two-Factor Authentication...
     Route::get('settings/two-factor', [UserTwoFactorAuthenticationController::class, 'show'])
         ->name('two-factor.show');
+
+    // User Passkeys...
+    Route::get('settings/passkeys', [UserPasskeyController::class, 'index'])
+        ->name('user-passkey.index');
 });
 
 Route::middleware('guest')->group(function (): void {
@@ -85,3 +92,13 @@ Route::middleware('auth')->group(function (): void {
     Route::post('logout', [SessionController::class, 'destroy'])
         ->name('logout');
 });
+
+// Lets password managers deep-link to where passkeys are created and managed...
+Route::get('.well-known/passkey-endpoints', function () {
+    abort_unless(Features::enabled(Features::passkeys()), 404);
+
+    return response()->json([
+        'enroll' => route('user-passkey.index'),
+        'manage' => route('user-passkey.index'),
+    ]);
+})->name('well-known.passkeys');

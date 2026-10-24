@@ -1,8 +1,12 @@
 <script lang="ts" setup>
 import { Form, Head } from "@inertiajs/vue3";
-import { LoaderCircle } from "lucide-vue-next";
+import { LoaderCircle } from "@lucide/vue";
+
+import type { PasswordRequirements } from "@/types";
 
 import InputError from "@/components/input-error.vue";
+import PasswordInput from "@/components/password-input.vue";
+import PasswordRequirementsList from "@/components/password-requirements.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,10 +14,18 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import UserController from "@/wayfinder/App/Http/Controllers/UserController";
 import { login } from "@/wayfinder/routes";
+
+defineOptions({
+  layout: [AuthLayout, { title: "Create an account", description: "Enter your details below to create your account" }],
+});
+
+defineProps<{
+  passwordRequirements: PasswordRequirements;
+}>();
 </script>
 
 <template>
-  <AuthLayout description="Enter your details below to create your account" title="Create an account">
+  <div class="contents">
     <Head title="Register" />
 
     <Form
@@ -29,7 +41,7 @@ import { login } from "@/wayfinder/routes";
             id="name"
             :tabindex="1"
             autocomplete="name"
-            autofocus
+            v-focus
             name="name"
             placeholder="Full name"
             required
@@ -54,28 +66,30 @@ import { login } from "@/wayfinder/routes";
 
         <div class="grid gap-2">
           <Label for="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
+            aria-describedby="password-hints"
             :tabindex="3"
             autocomplete="new-password"
             name="password"
             placeholder="Password"
             required
-            type="password"
+            :passwordrules="passwordRequirements.rules"
           />
+          <PasswordRequirementsList id="password-hints" :hints="passwordRequirements.hints" />
           <InputError :message="errors.password" />
         </div>
 
         <div class="grid gap-2">
           <Label for="password_confirmation">Confirm password</Label>
-          <Input
+          <PasswordInput
             id="password_confirmation"
             :tabindex="4"
             autocomplete="new-password"
             name="password_confirmation"
             placeholder="Confirm password"
             required
-            type="password"
+            :passwordrules="passwordRequirements.rules"
           />
           <InputError :message="errors.password_confirmation" />
         </div>
@@ -91,5 +105,5 @@ import { login } from "@/wayfinder/routes";
         <TextLink :href="login()" :tabindex="6" class="underline underline-offset-4"> Log in </TextLink>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

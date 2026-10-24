@@ -1,34 +1,51 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
-import { LoaderCircle } from "lucide-vue-next";
+import { Form, Head, usePage } from "@inertiajs/vue3";
+import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
+import PasskeyVerify from "@/components/passkey-verify.vue";
+import PasswordInput from "@/components/password-input.vue";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import { store } from "@/wayfinder/routes/password/confirm";
+
+defineOptions({
+  layout: [
+    AuthLayout,
+    {
+      title: "Confirm your password",
+      description: "This is a secure area of the application. Please confirm your password before continuing.",
+    },
+  ],
+});
+
+const page = usePage();
 </script>
 
 <template>
-  <AuthLayout
-    title="Confirm your password"
-    description="This is a secure area of the application. Please confirm your password before continuing."
-  >
+  <div class="contents">
     <Head title="Confirm password" />
+
+    <PasskeyVerify
+      v-if="page.props.passkeyRoutes"
+      :routes="page.props.passkeyRoutes.confirm"
+      label="Confirm with passkey"
+      loading-label="Confirming..."
+      separator="Or confirm with password"
+    />
 
     <Form v-slot="{ errors, processing }" v-bind="store.form()" reset-on-success>
       <div class="space-y-6">
         <div class="grid gap-2">
           <Label html-for="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             name="password"
             class="mt-1 block w-full"
             required
             autocomplete="current-password"
-            autofocus
+            v-focus
           />
 
           <InputError :message="errors.password" />
@@ -42,5 +59,5 @@ import { store } from "@/wayfinder/routes/password/confirm";
         </div>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { Form, Head, setLayoutProps } from "@inertiajs/vue3";
+import { computed, ref, watchEffect } from "vue";
 
 import InputError from "@/components/input-error.vue";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,16 @@ import { Input } from "@/components/ui/input";
 import { PinInput, PinInputGroup, PinInputSlot } from "@/components/ui/pin-input";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import { store } from "@/wayfinder/routes/two-factor/login";
+
+defineOptions({
+  layout: [
+    AuthLayout,
+    {
+      title: "Authentication Code",
+      description: "Enter the authentication code provided by your authenticator application.",
+    },
+  ],
+});
 
 interface AuthConfigContent {
   title: string;
@@ -33,6 +43,14 @@ const authConfigContent = computed<AuthConfigContent>(() => {
   };
 });
 
+// The persistent layout owns the heading, so push the mode-specific copy to it when the user toggles.
+watchEffect(() => {
+  setLayoutProps({
+    title: authConfigContent.value.title,
+    description: authConfigContent.value.description,
+  });
+});
+
 const code = ref<number[]>([]);
 const codeValue = computed<string>(() => code.value.join(""));
 
@@ -44,7 +62,7 @@ function toggleRecoveryMode(clearErrors: () => void): void {
 </script>
 
 <template>
-  <AuthLayout :title="authConfigContent.title" :description="authConfigContent.description">
+  <div class="contents">
     <Head title="Two-Factor Authentication" />
 
     <div class="space-y-6">
@@ -87,7 +105,7 @@ function toggleRecoveryMode(clearErrors: () => void): void {
             name="recovery_code"
             type="text"
             placeholder="Enter recovery code"
-            :autofocus="showRecoveryInput"
+            v-focus="showRecoveryInput"
             required
           />
           <InputError :message="errors.recovery_code" />
@@ -106,5 +124,5 @@ function toggleRecoveryMode(clearErrors: () => void): void {
         </Form>
       </template>
     </div>
-  </AuthLayout>
+  </div>
 </template>

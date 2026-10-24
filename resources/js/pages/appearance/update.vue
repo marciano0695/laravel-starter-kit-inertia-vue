@@ -9,23 +9,31 @@ import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
 import { edit } from "@/wayfinder/routes/appearance";
 
-const breadcrumbItems: BreadcrumbItem[] = [
-  {
-    title: "Appearance settings",
-    href: edit().url,
-  },
-];
+defineOptions({
+  layout: [
+    [
+      AppLayout,
+      {
+        breadcrumbs: [
+          {
+            title: "Appearance settings",
+            href: edit().url,
+          },
+        ] satisfies BreadcrumbItem[],
+      },
+    ],
+    SettingsLayout,
+  ],
+});
 </script>
 
 <template>
-  <AppLayout :breadcrumbs="breadcrumbItems">
+  <div class="contents">
     <Head title="Appearance settings" />
 
-    <SettingsLayout>
-      <div class="space-y-6">
-        <HeadingSmall description="Update your account's appearance settings" title="Appearance settings" />
-        <AppearanceTabs />
-      </div>
-    </SettingsLayout>
-  </AppLayout>
+    <div class="space-y-6">
+      <HeadingSmall description="Update your account's appearance settings" title="Appearance settings" />
+      <AppearanceTabs />
+    </div>
+  </div>
 </template>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Actions\User\CreateUserPassword;
+use App\Actions\User\DescribePasswordRequirements;
 use App\Actions\User\UpdateUserPassword;
 use App\Http\Requests\CreateUserPasswordRequest;
 use App\Http\Requests\UpdateUserPasswordRequest;
@@ -19,11 +20,12 @@ use Inertia\Response;
 
 final readonly class UserPasswordController
 {
-    public function create(Request $request): Response
+    public function create(Request $request, DescribePasswordRequirements $passwordRequirements): Response
     {
         return Inertia::render('user-password/create', [
-            'email' => (string) $request->email,
+            'email' => $request->string('email')->value(),
             'token' => (string) $request->route('token'),
+            'passwordRequirements' => $passwordRequirements->handle(),
         ]);
     }
 
@@ -44,14 +46,21 @@ final readonly class UserPasswordController
         return to_route('login')->with('status', __('passwords.reset'));
     }
 
-    public function edit(): Response
+    public function edit(DescribePasswordRequirements $passwordRequirements): Response
     {
-        return Inertia::render('user-password/edit');
+        return Inertia::render('user-password/edit', [
+            'passwordRequirements' => $passwordRequirements->handle(),
+        ]);
     }
 
     public function update(UpdateUserPasswordRequest $request, #[CurrentUser] User $user, UpdateUserPassword $action): RedirectResponse
     {
         $action->handle($user, $request->string('password')->value());
+
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Password updated.'),
+        ]);
 
         return back();
     }

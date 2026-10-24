@@ -5,6 +5,7 @@ import { ref } from "vue";
 // Components
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
+import PasswordInput from "@/components/password-input.vue";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,11 +17,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import UserController from "@/wayfinder/App/Http/Controllers/UserController";
 
-const passwordInput = ref<InstanceType<typeof Input> | null>(null);
+const passwordInput = ref<InstanceType<typeof PasswordInput> | null>(null);
 </script>
 
 <template>
@@ -44,7 +44,7 @@ const passwordInput = ref<InstanceType<typeof Input> | null>(null);
               preserveScroll: true,
             }"
             class="space-y-6"
-            @error="() => passwordInput?.$el?.focus()"
+            @error="() => passwordInput?.focus()"
           >
             <DialogHeader class="space-y-3">
               <DialogTitle> Are you sure you want to delete your account? </DialogTitle>
@@ -56,7 +56,7 @@ const passwordInput = ref<InstanceType<typeof Input> | null>(null);
 
             <div class="grid gap-2">
               <Label for="password" class="sr-only">Password</Label>
-              <Input id="password" ref="passwordInput" type="password" name="password" placeholder="Password" />
+              <PasswordInput id="password" ref="passwordInput" name="password" placeholder="Password" />
               <InputError :message="errors.password" />
             </div>
 

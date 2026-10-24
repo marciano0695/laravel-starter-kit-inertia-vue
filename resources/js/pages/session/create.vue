@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { Form, Head } from "@inertiajs/vue3";
-import { LoaderCircle } from "lucide-vue-next";
+import { Form, Head, usePage } from "@inertiajs/vue3";
+import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
+import PasskeyVerify from "@/components/passkey-verify.vue";
+import PasswordInput from "@/components/password-input.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,15 +15,26 @@ import SessionController from "@/wayfinder/App/Http/Controllers/SessionControlle
 import { register } from "@/wayfinder/routes";
 import { request } from "@/wayfinder/routes/password";
 
+defineOptions({
+  layout: [
+    AuthLayout,
+    { title: "Log in to your account", description: "Enter your email and password below to log in" },
+  ],
+});
+
 defineProps<{
   status?: string;
   canResetPassword: boolean;
 }>();
+
+const page = usePage();
 </script>
 
 <template>
-  <AuthLayout description="Enter your email and password below to log in" title="Log in to your account">
+  <div class="contents">
     <Head title="Log in" />
+
+    <PasskeyVerify v-if="page.props.passkeyRoutes" :routes="page.props.passkeyRoutes.login" />
 
     <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
       {{ status }}
@@ -40,7 +53,7 @@ defineProps<{
             id="email"
             :tabindex="1"
             autocomplete="email"
-            autofocus
+            v-focus
             name="email"
             placeholder="email@example.com"
             required
@@ -56,14 +69,13 @@ defineProps<{
               Forgot password?
             </TextLink>
           </div>
-          <Input
+          <PasswordInput
             id="password"
             :tabindex="2"
             autocomplete="current-password"
             name="password"
             placeholder="Password"
             required
-            type="password"
           />
           <InputError :message="errors.password" />
         </div>
@@ -86,5 +98,5 @@ defineProps<{
         <TextLink :href="register()" :tabindex="5"> Sign up </TextLink>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

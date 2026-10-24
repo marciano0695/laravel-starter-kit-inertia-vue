@@ -6,13 +6,17 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 it('renders registration page', function (): void {
     $response = $this->fromRoute('home')
         ->get(route('register'));
 
     $response->assertOk()
-        ->assertInertia(fn ($page) => $page->component('user/create'));
+        ->assertInertia(fn ($page) => $page
+            ->component('user/create')
+            ->where('passwordRequirements.rules', Password::defaults()->toPasswordRulesString())
+            ->where('passwordRequirements.hints', ['At least 12 characters']));
 });
 
 it('may register a new user', function (): void {

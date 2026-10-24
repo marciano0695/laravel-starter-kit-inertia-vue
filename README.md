@@ -11,7 +11,7 @@ Modern PHP has evolved into a mature, type-safe language, yet many Laravel proje
 - **Fully Actions-Oriented Architecture**: Every operation is encapsulated in a single-action class
 - **Cruddy by Design**: Standardized CRUD operations for all controllers, actions, and Inertia & React pages
 - **100% Type Coverage**: Every method, property, and parameter is explicitly typed
-- **Zero Tolerance for Code Smells**: Rector, PHPStan, ESLint, and Prettier at maximum strictness catch issues before they become bugs
+- **Zero Tolerance for Code Smells**: Rector, PHPStan, Oxlint (type-aware), and Oxfmt via Vite+ at maximum strictness catch issues before they become bugs
 - **Immutable-First Architecture**: Data structures favor immutability to prevent unexpected mutations
 - **Fail-Fast Philosophy**: Errors are caught at compile-time, not runtime
 - **Automated Code Quality**: Pre-configured tools ensure consistent, pristine code across your entire team
@@ -64,11 +64,11 @@ You should see 100% test coverage and all quality checks passing.
 
 ### Development
 
-- `composer dev` - Starts Laravel server, queue worker, log monitoring, and Vite dev server concurrently
+- `composer dev` - Starts Laravel server, queue worker, log monitoring, and Vite+ dev server concurrently
 
 ### Code Quality
 
-- `composer lint` - Runs Rector (refactoring), Pint (PHP formatting), and Prettier (JS/TS formatting)
+- `composer lint` - Runs Rector (refactoring), Pint (PHP formatting), and Vite+ (Oxfmt formatting + Oxlint)
 - `composer test:lint` - Dry-run mode for CI/CD pipelines
 
 ### Testing
