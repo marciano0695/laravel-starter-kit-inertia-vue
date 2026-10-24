@@ -17,10 +17,6 @@ final readonly class DescribePasswordRequirements
     {
         $password = Password::defaults();
 
-        if (config('app.env') === 'production') {
-            $password = $password->mixedCase()->numbers()->symbols()->uncompromised();
-        }
-
         /** @var array{min: int, mixedCase: bool, letters: bool, numbers: bool, symbols: bool, uncompromised: bool} $applied */
         $applied = $password->appliedRules();
 

@@ -14,6 +14,23 @@ it('describes the default password rules', function (): void {
     ]);
 });
 
+it('describes the production password rules', function (): void {
+    app()['env'] = 'production';
+
+    $action = resolve(DescribePasswordRequirements::class);
+
+    expect($action->handle())->toBe([
+        'rules' => Password::defaults()->toPasswordRulesString(),
+        'hints' => [
+            'At least 12 characters',
+            'Upper and lowercase letters',
+            'At least one number',
+            'At least one symbol',
+            'Not found in a known data leak',
+        ],
+    ]);
+});
+
 it('describes every enabled password rule', function (): void {
     Password::defaults(fn (): Password => Password::min(10)->mixedCase()->numbers()->symbols()->uncompromised());
 
