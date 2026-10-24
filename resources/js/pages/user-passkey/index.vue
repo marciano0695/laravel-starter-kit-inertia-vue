@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Head } from "@inertiajs/vue3";
 
-import type { BreadcrumbItem, Passkey } from "@/types";
+import type { BreadcrumbItem } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import ManagePasskeys from "@/components/manage-passkeys.vue";
 import AppLayout from "@/layouts/app-layout.vue";
@@ -25,13 +26,7 @@ defineOptions({
   ],
 });
 
-interface Props {
-  passkeys?: Passkey[];
-}
-
-withDefaults(defineProps<Props>(), {
-  passkeys: () => [],
-});
+defineProps<Inertia.Pages.UserPasskey.Index>();
 </script>
 
 <template>

@@ -18,6 +18,7 @@ final readonly class UserProfileController
     public function edit(Request $request): Response
     {
         return Inertia::render('user-profile/edit', [
+            /** @var string|null */
             'status' => $request->session()->get('status'),
         ]);
     }

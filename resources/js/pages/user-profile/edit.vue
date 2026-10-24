@@ -2,6 +2,7 @@
 import { Form, Head, Link, usePage } from "@inertiajs/vue3";
 
 import type { BreadcrumbItem } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import DeleteUser from "@/components/delete-user.vue";
 import HeadingSmall from "@/components/heading-small.vue";
@@ -32,15 +33,11 @@ defineOptions({
   ],
 });
 
-interface Props {
-  mustVerifyEmail: boolean;
-  status?: string;
-}
-
-defineProps<Props>();
+defineProps<Inertia.Pages.UserProfile.Edit>();
 
 const page = usePage();
-const user = page.props.auth.user;
+// The auth middleware guards this page, so a user is always present.
+const user = page.props.auth.user!;
 </script>
 
 <template>
@@ -84,7 +81,7 @@ const user = page.props.auth.user;
           <InputError class="mt-2" :message="errors.email" />
         </div>
 
-        <div v-if="mustVerifyEmail && !user.email_verified_at">
+        <div v-if="!user.email_verified_at">
           <p class="-mt-4 text-sm text-muted-foreground">
             Your email address is unverified.
             <Link

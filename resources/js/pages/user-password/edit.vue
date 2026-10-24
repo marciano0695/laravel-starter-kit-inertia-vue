@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Form, Head } from "@inertiajs/vue3";
 
-import type { BreadcrumbItem, PasswordRequirements } from "@/types";
+import type { BreadcrumbItem } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
@@ -31,9 +32,7 @@ defineOptions({
   ],
 });
 
-defineProps<{
-  passwordRequirements: PasswordRequirements;
-}>();
+defineProps<Inertia.Pages.UserPassword.Edit>();
 </script>
 
 <template>

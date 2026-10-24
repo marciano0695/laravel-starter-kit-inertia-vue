@@ -2,6 +2,8 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
+import type { Inertia } from "@/wayfinder/types";
+
 import InputError from "@/components/input-error.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
@@ -15,9 +17,7 @@ defineOptions({
   layout: [AuthLayout, { title: "Forgot password", description: "Enter your email to receive a password reset link" }],
 });
 
-defineProps<{
-  status?: string;
-}>();
+defineProps<Inertia.Pages.UserEmailResetNotification.Create>();
 </script>
 
 <template>

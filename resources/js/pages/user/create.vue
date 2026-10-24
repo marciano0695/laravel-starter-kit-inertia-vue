@@ -2,7 +2,7 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
-import type { PasswordRequirements } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import InputError from "@/components/input-error.vue";
 import PasswordInput from "@/components/password-input.vue";
@@ -19,9 +19,7 @@ defineOptions({
   layout: [AuthLayout, { title: "Create an account", description: "Enter your details below to create your account" }],
 });
 
-defineProps<{
-  passwordRequirements: PasswordRequirements;
-}>();
+defineProps<Inertia.Pages.User.Create>();
 </script>
 
 <template>

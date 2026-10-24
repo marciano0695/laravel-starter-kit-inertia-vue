@@ -1,5 +1,5 @@
 import type { vFocus } from "@/lib/focus";
-import type { AppPageProps, FlashToast } from "@/types/index";
+import type { FlashToast } from "@/types/index";
 
 // Extend ImportMeta interface for Vite...
 declare module "vite/client" {
@@ -15,8 +15,6 @@ declare module "vite/client" {
 }
 
 declare module "@inertiajs/core" {
-  interface PageProps extends InertiaPageProps, AppPageProps {}
-
   // Merges with the Wayfinder-generated InertiaConfig to type Inertia::flash() data.
   interface InertiaConfig {
     flashDataType: {

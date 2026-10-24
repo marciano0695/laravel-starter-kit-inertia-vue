@@ -2,7 +2,7 @@
 import { Link, router } from "@inertiajs/vue3";
 import { LogOut, Settings } from "@lucide/vue";
 
-import type { User } from "@/types";
+import type { App } from "@/wayfinder/types";
 
 import {
   DropdownMenuGroup,
@@ -15,7 +15,7 @@ import { logout } from "@/wayfinder/routes";
 import { edit } from "@/wayfinder/routes/user-profile";
 
 interface Props {
-  user: User;
+  user: App.Models.User;
 }
 
 defineProps<Props>();
