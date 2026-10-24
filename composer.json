@@ -25,7 +25,6 @@
     "laravel/pail": "^1.2.7",
     "laravel/pao": "^1.1",
     "laravel/pint": "^1.32.1",
-    "laravel/sail": "^1.69",
     "laravel/vet": "^0.2",
     "mockery/mockery": "^1.6.15",
     "nunomaduro/collision": "^8.9.5",
@@ -60,11 +59,6 @@
     "dev": [
       "Composer\\Config::disableProcessTimeout",
       "@php artisan dev"
-    ],
-    "dev:ssr": [
-      "npm run build:ssr",
-      "Composer\\Config::disableProcessTimeout",
-      "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
     ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -107,10 +101,10 @@
       "npm run test:types"
     ],
     "test": [
-      "@test:type-coverage",
-      "@test:unit",
       "@test:lint",
-      "@test:types"
+      "@test:types",
+      "@test:type-coverage",
+      "@test:unit"
     ]
   },
   "extra": {
