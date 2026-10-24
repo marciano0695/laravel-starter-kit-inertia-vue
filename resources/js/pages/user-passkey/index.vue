@@ -8,6 +8,23 @@ import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
 import { index } from "@/wayfinder/routes/user-passkey";
 
+defineOptions({
+  layout: [
+    [
+      AppLayout,
+      {
+        breadcrumbs: [
+          {
+            title: "Passkeys",
+            href: index.url(),
+          },
+        ] satisfies BreadcrumbItem[],
+      },
+    ],
+    SettingsLayout,
+  ],
+});
+
 interface Props {
   passkeys?: Passkey[];
 }
@@ -15,20 +32,11 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   passkeys: () => [],
 });
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: "Passkeys",
-    href: index.url(),
-  },
-];
 </script>
 
 <template>
-  <AppLayout :breadcrumbs="breadcrumbs">
+  <div class="contents">
     <Head title="Passkeys" />
-    <SettingsLayout>
-      <ManagePasskeys :passkeys="passkeys" />
-    </SettingsLayout>
-  </AppLayout>
+    <ManagePasskeys :passkeys="passkeys" />
+  </div>
 </template>

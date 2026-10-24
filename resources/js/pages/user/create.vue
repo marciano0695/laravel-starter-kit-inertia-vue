@@ -15,13 +15,17 @@ import AuthLayout from "@/layouts/auth-layout.vue";
 import UserController from "@/wayfinder/App/Http/Controllers/UserController";
 import { login } from "@/wayfinder/routes";
 
+defineOptions({
+  layout: [AuthLayout, { title: "Create an account", description: "Enter your details below to create your account" }],
+});
+
 defineProps<{
   passwordRequirements: PasswordRequirements;
 }>();
 </script>
 
 <template>
-  <AuthLayout description="Enter your details below to create your account" title="Create an account">
+  <div class="contents">
     <Head title="Register" />
 
     <Form
@@ -37,7 +41,7 @@ defineProps<{
             id="name"
             :tabindex="1"
             autocomplete="name"
-            autofocus
+            v-focus
             name="name"
             placeholder="Full name"
             required
@@ -101,5 +105,5 @@ defineProps<{
         <TextLink :href="login()" :tabindex="6" class="underline underline-offset-4"> Log in </TextLink>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

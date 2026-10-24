@@ -42,8 +42,6 @@ const sidebarNavItems: NavItem[] = [
     href: editAppearance(),
   },
 ];
-
-const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
 </script>
 
 <template>
@@ -58,7 +56,7 @@ const currentPath = typeof window !== "undefined" ? window.location.pathname : "
             :key="toUrl(item.href)"
             variant="ghost"
             class="w-full justify-start"
-            :class="[{ 'bg-muted': urlIsActive(item.href, currentPath) }]"
+            :class="[{ 'bg-muted': urlIsActive(item.href, page.url) }]"
             as-child
           >
             <Link :href="item.href">
@@ -72,7 +70,8 @@ const currentPath = typeof window !== "undefined" ? window.location.pathname : "
       <Separator class="my-6 lg:hidden" />
 
       <div class="flex-1 md:max-w-2xl">
-        <section class="max-w-xl space-y-12">
+        <!-- Gap rather than space-y, so pages can wrap their sections in a display: contents root -->
+        <section class="flex max-w-xl flex-col gap-12">
           <slot />
         </section>
       </div>

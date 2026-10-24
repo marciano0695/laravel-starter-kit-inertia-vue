@@ -15,6 +15,13 @@ import SessionController from "@/wayfinder/App/Http/Controllers/SessionControlle
 import { register } from "@/wayfinder/routes";
 import { request } from "@/wayfinder/routes/password";
 
+defineOptions({
+  layout: [
+    AuthLayout,
+    { title: "Log in to your account", description: "Enter your email and password below to log in" },
+  ],
+});
+
 defineProps<{
   status?: string;
   canResetPassword: boolean;
@@ -24,7 +31,7 @@ const page = usePage();
 </script>
 
 <template>
-  <AuthLayout description="Enter your email and password below to log in" title="Log in to your account">
+  <div class="contents">
     <Head title="Log in" />
 
     <PasskeyVerify v-if="page.props.passkeyRoutes" :routes="page.props.passkeyRoutes.login" />
@@ -46,7 +53,7 @@ const page = usePage();
             id="email"
             :tabindex="1"
             autocomplete="email"
-            autofocus
+            v-focus
             name="email"
             placeholder="email@example.com"
             required
@@ -91,5 +98,5 @@ const page = usePage();
         <TextLink :href="register()" :tabindex="5"> Sign up </TextLink>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

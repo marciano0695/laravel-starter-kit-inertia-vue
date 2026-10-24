@@ -11,13 +11,17 @@ import AuthLayout from "@/layouts/auth-layout.vue";
 import UserEmailResetNotificationController from "@/wayfinder/App/Http/Controllers/UserEmailResetNotificationController";
 import { login } from "@/wayfinder/routes";
 
+defineOptions({
+  layout: [AuthLayout, { title: "Forgot password", description: "Enter your email to receive a password reset link" }],
+});
+
 defineProps<{
   status?: string;
 }>();
 </script>
 
 <template>
-  <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
+  <div class="contents">
     <Head title="Forgot password" />
 
     <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
@@ -28,7 +32,7 @@ defineProps<{
       <Form v-slot="{ errors, processing }" v-bind="UserEmailResetNotificationController.store.form()">
         <div class="grid gap-2">
           <Label for="email">Email address</Label>
-          <Input id="email" type="email" name="email" autocomplete="off" autofocus placeholder="email@example.com" />
+          <Input id="email" type="email" name="email" autocomplete="off" v-focus placeholder="email@example.com" />
           <InputError :message="errors.email" />
         </div>
 
@@ -45,5 +49,5 @@ defineProps<{
         <TextLink :href="login()"> log in </TextLink>
       </div>
     </div>
-  </AuthLayout>
+  </div>
 </template>

@@ -10,14 +10,21 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import { store } from "@/wayfinder/routes/password/confirm";
 
+defineOptions({
+  layout: [
+    AuthLayout,
+    {
+      title: "Confirm your password",
+      description: "This is a secure area of the application. Please confirm your password before continuing.",
+    },
+  ],
+});
+
 const page = usePage();
 </script>
 
 <template>
-  <AuthLayout
-    title="Confirm your password"
-    description="This is a secure area of the application. Please confirm your password before continuing."
-  >
+  <div class="contents">
     <Head title="Confirm password" />
 
     <PasskeyVerify
@@ -38,7 +45,7 @@ const page = usePage();
             class="mt-1 block w-full"
             required
             autocomplete="current-password"
-            autofocus
+            v-focus
           />
 
           <InputError :message="errors.password" />
@@ -52,5 +59,5 @@ const page = usePage();
         </div>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

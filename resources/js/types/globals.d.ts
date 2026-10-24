@@ -1,3 +1,4 @@
+import type { vFocus } from "@/lib/focus";
 import type { AppPageProps, FlashToast } from "@/types/index";
 
 // Extend ImportMeta interface for Vite...
@@ -29,6 +30,10 @@ declare module "vue" {
     $inertia: typeof Router;
     $page: Page;
     $headManager: ReturnType<typeof createHeadManager>;
+  }
+
+  interface GlobalDirectives {
+    vFocus: typeof vFocus;
   }
 }
 

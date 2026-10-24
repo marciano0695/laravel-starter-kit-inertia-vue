@@ -14,6 +14,10 @@ import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import UserPasswordController from "@/wayfinder/App/Http/Controllers/UserPasswordController";
 
+defineOptions({
+  layout: [AuthLayout, { title: "Reset password", description: "Please enter your new password below" }],
+});
+
 const props = defineProps<{
   token: string;
   email: string;
@@ -24,7 +28,7 @@ const inputEmail = ref(props.email);
 </script>
 
 <template>
-  <AuthLayout title="Reset password" description="Please enter your new password below">
+  <div class="contents">
     <Head title="Reset password" />
 
     <Form
@@ -56,7 +60,7 @@ const inputEmail = ref(props.email);
             name="password"
             autocomplete="new-password"
             class="mt-1 block w-full"
-            autofocus
+            v-focus
             placeholder="Password"
             :passwordrules="passwordRequirements.rules"
           />
@@ -83,5 +87,5 @@ const inputEmail = ref(props.email);
         </Button>
       </div>
     </Form>
-  </AuthLayout>
+  </div>
 </template>

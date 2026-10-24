@@ -8,16 +8,23 @@ import AuthLayout from "@/layouts/auth-layout.vue";
 import UserEmailVerificationNotificationController from "@/wayfinder/App/Http/Controllers/UserEmailVerificationNotificationController";
 import { logout } from "@/wayfinder/routes";
 
+defineOptions({
+  layout: [
+    AuthLayout,
+    {
+      title: "Verify email",
+      description: "Please verify your email address by clicking on the link we just emailed to you.",
+    },
+  ],
+});
+
 defineProps<{
   status?: string;
 }>();
 </script>
 
 <template>
-  <AuthLayout
-    title="Verify email"
-    description="Please verify your email address by clicking on the link we just emailed to you."
-  >
+  <div class="contents">
     <Head title="Email verification" />
 
     <div v-if="status === 'verification-link-sent'" class="mb-4 text-center text-sm font-medium text-green-600">
@@ -36,5 +43,5 @@ defineProps<{
 
       <TextLink :href="logout()" as="button" class="mx-auto block text-sm"> Log out </TextLink>
     </Form>
-  </AuthLayout>
+  </div>
 </template>
