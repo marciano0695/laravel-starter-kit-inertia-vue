@@ -16,7 +16,7 @@ it('keeps password rules relaxed outside production', function (): void {
 });
 
 it('requires strong passwords in production', function (): void {
-    app()['env'] = 'production';
+    app()->detectEnvironment(fn (): string => 'production');
 
     expect(Password::defaults()->appliedRules())->toMatchArray([
         'min' => 12,

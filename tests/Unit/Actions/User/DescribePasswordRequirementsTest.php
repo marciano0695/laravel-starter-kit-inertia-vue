@@ -15,7 +15,7 @@ it('describes the default password rules', function (): void {
 });
 
 it('describes the production password rules', function (): void {
-    app()['env'] = 'production';
+    app()->detectEnvironment(fn (): string => 'production');
 
     $action = resolve(DescribePasswordRequirements::class);
 
