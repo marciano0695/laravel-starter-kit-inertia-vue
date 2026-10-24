@@ -3,7 +3,7 @@ import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 import { ref } from "vue";
 
-import type { PasswordRequirements } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import InputError from "@/components/input-error.vue";
 import PasswordInput from "@/components/password-input.vue";
@@ -18,11 +18,7 @@ defineOptions({
   layout: [AuthLayout, { title: "Reset password", description: "Please enter your new password below" }],
 });
 
-const props = defineProps<{
-  token: string;
-  email: string;
-  passwordRequirements: PasswordRequirements;
-}>();
+const props = defineProps<Inertia.Pages.UserPassword.Create>();
 
 const inputEmail = ref(props.email);
 </script>

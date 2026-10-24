@@ -2,6 +2,8 @@
 import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
+import type { Inertia } from "@/wayfinder/types";
+
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import AuthLayout from "@/layouts/auth-layout.vue";
@@ -18,9 +20,7 @@ defineOptions({
   ],
 });
 
-defineProps<{
-  status?: string;
-}>();
+defineProps<Inertia.Pages.UserEmailVerificationNotification.Create>();
 </script>
 
 <template>

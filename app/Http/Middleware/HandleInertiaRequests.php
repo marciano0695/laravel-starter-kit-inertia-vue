@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Inertia\Middleware;
 use Laravel\Fortify\Features;
 
@@ -41,7 +42,7 @@ final class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
-            'name' => config('app.name'),
+            'name' => Config::string('app.name'),
             'auth' => [
                 'user' => $request->user(),
             ],

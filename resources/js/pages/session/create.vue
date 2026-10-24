@@ -2,6 +2,8 @@
 import { Form, Head, usePage } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
+import type { Inertia } from "@/wayfinder/types";
+
 import InputError from "@/components/input-error.vue";
 import PasskeyVerify from "@/components/passkey-verify.vue";
 import PasswordInput from "@/components/password-input.vue";
@@ -22,10 +24,7 @@ defineOptions({
   ],
 });
 
-defineProps<{
-  status?: string;
-  canResetPassword: boolean;
-}>();
+defineProps<Inertia.Pages.Session.Create>();
 
 const page = usePage();
 </script>

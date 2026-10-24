@@ -28,19 +28,29 @@ final readonly class UserPasskeyController implements HasMiddleware
         abort_unless(Features::canManagePasskeys(), 404);
 
         return Inertia::render('user-passkey/index', [
-            'passkeys' => $user->passkeys()
-                ->latest()
-                ->get()
-                ->map(fn (Passkey $passkey): array => [
-                    'id' => $passkey->id,
-                    'name' => $passkey->name,
-                    'destroy_url' => route('passkey.destroy', $passkey),
-                    'authenticator' => $passkey->authenticator,
-                    'created_at_diff' => $passkey->created_at?->diffForHumans(),
-                    'last_used_at_diff' => $passkey->last_used_at?->diffForHumans(),
-                ])
-                ->values()
-                ->all(),
+            'passkeys' => $this->passkeys($user),
         ]);
+    }
+
+    /**
+     * Wayfinder types the page props from this shape, and PHPStan keeps it honest.
+     *
+     * @return array<int, array{id: int, name: string, destroy_url: string, authenticator: string|null, created_at_diff: string|null, last_used_at_diff: string|null}>
+     */
+    private function passkeys(User $user): array
+    {
+        return $user->passkeys()
+            ->latest()
+            ->get()
+            ->map(fn (Passkey $passkey): array => [
+                'id' => $passkey->id,
+                'name' => $passkey->name,
+                'destroy_url' => route('passkey.destroy', $passkey),
+                'authenticator' => $passkey->authenticator,
+                'created_at_diff' => $passkey->created_at?->diffForHumans(),
+                'last_used_at_diff' => $passkey->last_used_at?->diffForHumans(),
+            ])
+            ->values()
+            ->all();
     }
 }

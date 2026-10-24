@@ -20,11 +20,11 @@ use Inertia\Response;
 
 final readonly class UserPasswordController
 {
-    public function create(Request $request, DescribePasswordRequirements $passwordRequirements): Response
+    public function create(Request $request, string $token, DescribePasswordRequirements $passwordRequirements): Response
     {
         return Inertia::render('user-password/create', [
             'email' => $request->string('email')->value(),
-            'token' => (string) $request->route('token'),
+            'token' => $token,
             'passwordRequirements' => $passwordRequirements->handle(),
         ]);
     }

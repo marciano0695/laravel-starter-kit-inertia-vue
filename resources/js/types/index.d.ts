@@ -1,9 +1,7 @@
 import type { InertiaLinkProps } from "@inertiajs/vue3";
 import type { LucideIcon } from "@lucide/vue";
 
-export interface Auth {
-  user: User;
-}
+import type { Inertia } from "@/wayfinder/types";
 
 export interface BreadcrumbItem {
   title: string;
@@ -17,37 +15,10 @@ export interface NavItem {
   isActive?: boolean;
 }
 
-export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-  name: string;
-  auth: Auth;
-  sidebarOpen: boolean;
-};
-
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatar?: string;
-  email_verified_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
 export type BreadcrumbItemType = BreadcrumbItem;
 
-export interface Passkey {
-  id: number;
-  name: string;
-  destroy_url: string;
-  authenticator: string | null;
-  created_at_diff: string;
-  last_used_at_diff: string | null;
-}
-
-export interface PasswordRequirements {
-  rules: string;
-  hints: string[];
-}
+// The backend has no named passkey shape, so derive it from the page that sends one.
+export type Passkey = Inertia.Pages.UserPasskey.Index["passkeys"][number];
 
 export interface FlashToast {
   type: "success" | "info" | "warning" | "error";

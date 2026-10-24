@@ -4,6 +4,7 @@ import { ShieldBan, ShieldCheck } from "@lucide/vue";
 import { onUnmounted, ref } from "vue";
 
 import type { BreadcrumbItem } from "@/types";
+import type { Inertia } from "@/wayfinder/types";
 
 import HeadingSmall from "@/components/heading-small.vue";
 import TwoFactorRecoveryCodes from "@/components/two-factor-recovery-codes.vue";
@@ -32,15 +33,7 @@ defineOptions({
   ],
 });
 
-interface Props {
-  requiresConfirmation?: boolean;
-  twoFactorEnabled?: boolean;
-}
-
-withDefaults(defineProps<Props>(), {
-  requiresConfirmation: false,
-  twoFactorEnabled: false,
-});
+defineProps<Inertia.Pages.UserTwoFactorAuthentication.Show>();
 
 const { hasSetupData, clearTwoFactorAuthData } = useTwoFactorAuth();
 const showSetupModal = ref<boolean>(false);
@@ -92,11 +85,7 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <TwoFactorSetupModal
-        v-model:is-open="showSetupModal"
-        :requires-confirmation="requiresConfirmation"
-        :two-factor-enabled="twoFactorEnabled"
-      />
+      <TwoFactorSetupModal v-model:is-open="showSetupModal" :two-factor-enabled="twoFactorEnabled" />
     </div>
   </div>
 </template>
