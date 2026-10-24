@@ -26,7 +26,8 @@ Route::middleware('auth')->group(function (): void {
     Route::delete('user', [UserController::class, 'destroy'])->name('user.destroy');
 
     // User Profile...
-    Route::redirect('settings', '/settings/profile');
+    // GET only: Route::redirect() also matches QUERY, which Wayfinder can't type yet (laravel/wayfinder#326).
+    Route::get('settings', fn () => to_route('user-profile.edit'));
     Route::get('settings/profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
     Route::patch('settings/profile', [UserProfileController::class, 'update'])->name('user-profile.update');
 

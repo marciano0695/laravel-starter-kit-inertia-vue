@@ -146,3 +146,18 @@ it('allows keeping same email', function (): void {
     $response->assertRedirectToRoute('user-profile.edit')
         ->assertSessionDoesntHaveErrors();
 });
+
+it('redirects the settings root to the profile page', function (): void {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)
+        ->get('/settings');
+
+    $response->assertRedirectToRoute('user-profile.edit');
+});
+
+it('requires authentication to open the settings root', function (): void {
+    $response = $this->get('/settings');
+
+    $response->assertRedirectToRoute('login');
+});
