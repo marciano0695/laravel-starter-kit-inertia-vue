@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Laravel\Fortify\Features;
 
 final class HandleInertiaRequests extends Middleware
 {
@@ -45,6 +46,30 @@ final class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'passkeyRoutes' => $this->passkeyRoutes(),
+        ];
+    }
+
+    /**
+     * Passkey URLs come from the server because Fortify only registers these routes when passkeys are enabled.
+     *
+     * @return array{login: array{options: string, submit: string}, confirm: array{options: string, submit: string}}|null
+     */
+    private function passkeyRoutes(): ?array
+    {
+        if (! Features::enabled(Features::passkeys())) {
+            return null;
+        }
+
+        return [
+            'login' => [
+                'options' => route('passkey.login-options'),
+                'submit' => route('passkey.login'),
+            ],
+            'confirm' => [
+                'options' => route('passkey.confirm-options'),
+                'submit' => route('passkey.confirm'),
+            ],
         ];
     }
 }

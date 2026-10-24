@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 import type { NavItem } from "@/types";
 
@@ -10,7 +10,10 @@ import { toUrl, urlIsActive } from "@/lib/utils";
 import { edit as editAppearance } from "@/wayfinder/routes/appearance";
 import { edit as editPassword } from "@/wayfinder/routes/password";
 import { show } from "@/wayfinder/routes/two-factor";
+import { index as indexPasskeys } from "@/wayfinder/routes/user-passkey";
 import { edit as editProfile } from "@/wayfinder/routes/user-profile";
+
+const page = usePage();
 
 const sidebarNavItems: NavItem[] = [
   {
@@ -25,6 +28,15 @@ const sidebarNavItems: NavItem[] = [
     title: "Two-Factor Auth",
     href: show(),
   },
+  // Passkeys are opt-in, so the link only shows while the feature is enabled.
+  ...(page.props.passkeyRoutes
+    ? [
+        {
+          title: "Passkeys",
+          href: indexPasskeys(),
+        },
+      ]
+    : []),
   {
     title: "Appearance",
     href: editAppearance(),

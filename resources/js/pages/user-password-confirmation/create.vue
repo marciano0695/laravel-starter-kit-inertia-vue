@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3";
+import { Form, Head, usePage } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
+import PasskeyVerify from "@/components/passkey-verify.vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import { store } from "@/wayfinder/routes/password/confirm";
+
+const page = usePage();
 </script>
 
 <template>
@@ -16,6 +19,14 @@ import { store } from "@/wayfinder/routes/password/confirm";
     description="This is a secure area of the application. Please confirm your password before continuing."
   >
     <Head title="Confirm password" />
+
+    <PasskeyVerify
+      v-if="page.props.passkeyRoutes"
+      :routes="page.props.passkeyRoutes.confirm"
+      label="Confirm with passkey"
+      loading-label="Confirming..."
+      separator="Or confirm with password"
+    />
 
     <Form v-slot="{ errors, processing }" v-bind="store.form()" reset-on-success>
       <div class="space-y-6">

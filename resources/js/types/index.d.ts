@@ -35,6 +35,15 @@ export interface User {
 
 export type BreadcrumbItemType = BreadcrumbItem;
 
+export interface Passkey {
+  id: number;
+  name: string;
+  destroy_url: string;
+  authenticator: string | null;
+  created_at_diff: string;
+  last_used_at_diff: string | null;
+}
+
 export interface FlashToast {
   type: "success" | "info" | "warning" | "error";
   message: string;

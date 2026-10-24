@@ -8,6 +8,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Stringable;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
@@ -62,6 +63,16 @@ final class FortifyServiceProvider extends ServiceProvider
             name: 'two-factor',
             callback: fn (Request $request) => Limit::perMinute(maxAttempts: 5)->by(
                 key: $request->session()->get('login.id')
+            )
+        );
+        RateLimiter::for(
+            name: 'passkeys',
+            // Option requests carry no credential yet, so fall back to the session to keep throttling per visitor.
+            callback: fn (Request $request) => Limit::perMinute(maxAttempts: 10)->by(
+                key: $request->string('credential.id')
+                    ->whenEmpty(fn (Stringable $key): Stringable => $key->append($request->session()->getId()))
+                    ->append('|', (string) $request->ip())
+                    ->value()
             )
         );
     }

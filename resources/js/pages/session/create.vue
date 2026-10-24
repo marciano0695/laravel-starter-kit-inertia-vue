@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { Form, Head } from "@inertiajs/vue3";
+import { Form, Head, usePage } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
+import PasskeyVerify from "@/components/passkey-verify.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,11 +18,15 @@ defineProps<{
   status?: string;
   canResetPassword: boolean;
 }>();
+
+const page = usePage();
 </script>
 
 <template>
   <AuthLayout description="Enter your email and password below to log in" title="Log in to your account">
     <Head title="Log in" />
+
+    <PasskeyVerify v-if="page.props.passkeyRoutes" :routes="page.props.passkeyRoutes.login" />
 
     <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
       {{ status }}
