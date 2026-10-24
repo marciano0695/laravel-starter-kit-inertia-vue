@@ -23,14 +23,16 @@
     "larastan/larastan": "^3.13.2",
     "laravel/boost": "^2.10.3",
     "laravel/pail": "^1.2.7",
+    "laravel/pao": "^1.1",
     "laravel/pint": "^1.32.1",
     "laravel/sail": "^1.69",
+    "laravel/vet": "^0.2",
     "mockery/mockery": "^1.6.15",
     "nunomaduro/collision": "^8.9.5",
-    "pestphp/pest": "^4.7.8",
-    "pestphp/pest-plugin-browser": "^4.3.1",
-    "pestphp/pest-plugin-laravel": "^4.1.0",
-    "pestphp/pest-plugin-type-coverage": "^4.0.4",
+    "pestphp/pest": "^5.3",
+    "pestphp/pest-plugin-browser": "^5.0",
+    "pestphp/pest-plugin-laravel": "^5.0",
+    "pestphp/pest-plugin-type-coverage": "^5.0",
     "rector/rector": "^2.7.0",
     "roave/security-advisories": "dev-latest"
   },
@@ -57,7 +59,7 @@
     ],
     "dev": [
       "Composer\\Config::disableProcessTimeout",
-      "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+      "@php artisan dev"
     ],
     "dev:ssr": [
       "npm run build:ssr",
@@ -122,7 +124,8 @@
     "sort-packages": true,
     "allow-plugins": {
       "pestphp/pest-plugin": true,
-      "php-http/discovery": true
+      "php-http/discovery": true,
+      "laravel/vet": true
     }
   },
   "minimum-stability": "beta",
