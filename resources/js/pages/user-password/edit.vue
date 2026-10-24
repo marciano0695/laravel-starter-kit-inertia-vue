@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { Form, Head } from "@inertiajs/vue3";
-import { ref } from "vue";
 
-import type { BreadcrumbItem } from "@/types";
+import type { BreadcrumbItem, PasswordRequirements } from "@/types";
 
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
+import PasswordInput from "@/components/password-input.vue";
+import PasswordRequirementsList from "@/components/password-requirements.vue";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
 import UserPasswordController from "@/wayfinder/App/Http/Controllers/UserPasswordController";
 import { edit } from "@/wayfinder/routes/password";
+
+defineProps<{
+  passwordRequirements: PasswordRequirements;
+}>();
 
 const breadcrumbItems: BreadcrumbItem[] = [
   {
@@ -20,9 +24,6 @@ const breadcrumbItems: BreadcrumbItem[] = [
     href: edit().url,
   },
 ];
-
-const passwordInput = ref<HTMLInputElement | null>(null);
-const currentPasswordInput = ref<HTMLInputElement | null>(null);
 </script>
 
 <template>
@@ -48,11 +49,9 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
         >
           <div class="grid gap-2">
             <Label for="current_password">Current password</Label>
-            <Input
+            <PasswordInput
               id="current_password"
-              ref="currentPasswordInput"
               name="current_password"
-              type="password"
               class="mt-1 block w-full"
               autocomplete="current-password"
               placeholder="Current password"
@@ -62,27 +61,28 @@ const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
           <div class="grid gap-2">
             <Label for="password">New password</Label>
-            <Input
+            <PasswordInput
               id="password"
-              ref="passwordInput"
+              aria-describedby="password-hints"
               name="password"
-              type="password"
               class="mt-1 block w-full"
               autocomplete="new-password"
               placeholder="New password"
+              :passwordrules="passwordRequirements.rules"
             />
+            <PasswordRequirementsList id="password-hints" :hints="passwordRequirements.hints" />
             <InputError :message="errors.password" />
           </div>
 
           <div class="grid gap-2">
             <Label for="password_confirmation">Confirm password</Label>
-            <Input
+            <PasswordInput
               id="password_confirmation"
               name="password_confirmation"
-              type="password"
               class="mt-1 block w-full"
               autocomplete="new-password"
               placeholder="Confirm password"
+              :passwordrules="passwordRequirements.rules"
             />
             <InputError :message="errors.password_confirmation" />
           </div>

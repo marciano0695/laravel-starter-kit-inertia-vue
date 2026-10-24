@@ -44,6 +44,11 @@ export interface Passkey {
   last_used_at_diff: string | null;
 }
 
+export interface PasswordRequirements {
+  rules: string;
+  hints: string[];
+}
+
 export interface FlashToast {
   type: "success" | "info" | "warning" | "error";
   message: string;

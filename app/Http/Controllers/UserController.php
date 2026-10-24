@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\User\CreateUser;
 use App\Actions\User\DeleteUser;
+use App\Actions\User\DescribePasswordRequirements;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 use App\Models\User;
@@ -17,9 +18,11 @@ use Inertia\Response;
 
 final readonly class UserController
 {
-    public function create(): Response
+    public function create(DescribePasswordRequirements $passwordRequirements): Response
     {
-        return Inertia::render('user/create');
+        return Inertia::render('user/create', [
+            'passwordRequirements' => $passwordRequirements->handle(),
+        ]);
     }
 
     public function store(CreateUserRequest $request, CreateUser $action): RedirectResponse

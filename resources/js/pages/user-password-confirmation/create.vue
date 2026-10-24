@@ -4,8 +4,8 @@ import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
 import PasskeyVerify from "@/components/passkey-verify.vue";
+import PasswordInput from "@/components/password-input.vue";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AuthLayout from "@/layouts/auth-layout.vue";
 import { store } from "@/wayfinder/routes/password/confirm";
@@ -32,9 +32,8 @@ const page = usePage();
       <div class="space-y-6">
         <div class="grid gap-2">
           <Label html-for="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
             name="password"
             class="mt-1 block w-full"
             required

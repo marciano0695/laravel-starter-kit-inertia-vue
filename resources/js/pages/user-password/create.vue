@@ -3,7 +3,11 @@ import { Form, Head } from "@inertiajs/vue3";
 import { LoaderCircle } from "@lucide/vue";
 import { ref } from "vue";
 
+import type { PasswordRequirements } from "@/types";
+
 import InputError from "@/components/input-error.vue";
+import PasswordInput from "@/components/password-input.vue";
+import PasswordRequirementsList from "@/components/password-requirements.vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +17,7 @@ import UserPasswordController from "@/wayfinder/App/Http/Controllers/UserPasswor
 const props = defineProps<{
   token: string;
   email: string;
+  passwordRequirements: PasswordRequirements;
 }>();
 
 const inputEmail = ref(props.email);
@@ -45,27 +50,29 @@ const inputEmail = ref(props.email);
 
         <div class="grid gap-2">
           <Label for="password">Password</Label>
-          <Input
+          <PasswordInput
             id="password"
-            type="password"
+            aria-describedby="password-hints"
             name="password"
             autocomplete="new-password"
             class="mt-1 block w-full"
             autofocus
             placeholder="Password"
+            :passwordrules="passwordRequirements.rules"
           />
+          <PasswordRequirementsList id="password-hints" :hints="passwordRequirements.hints" />
           <InputError :message="errors.password" />
         </div>
 
         <div class="grid gap-2">
           <Label for="password_confirmation"> Confirm Password </Label>
-          <Input
+          <PasswordInput
             id="password_confirmation"
-            type="password"
             name="password_confirmation"
             autocomplete="new-password"
             class="mt-1 block w-full"
             placeholder="Confirm password"
+            :passwordrules="passwordRequirements.rules"
           />
           <InputError :message="errors.password_confirmation" />
         </div>

@@ -4,6 +4,7 @@ import { LoaderCircle } from "@lucide/vue";
 
 import InputError from "@/components/input-error.vue";
 import PasskeyVerify from "@/components/passkey-verify.vue";
+import PasswordInput from "@/components/password-input.vue";
 import TextLink from "@/components/text-link.vue";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -61,14 +62,13 @@ const page = usePage();
               Forgot password?
             </TextLink>
           </div>
-          <Input
+          <PasswordInput
             id="password"
             :tabindex="2"
             autocomplete="current-password"
             name="password"
             placeholder="Password"
             required
-            type="password"
           />
           <InputError :message="errors.password" />
         </div>

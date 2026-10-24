@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
 it('renders reset password page', function (): void {
     $response = $this->fromRoute('home')
@@ -16,7 +17,9 @@ it('renders reset password page', function (): void {
         ->assertInertia(fn ($page) => $page
             ->component('user-password/create')
             ->has('email')
-            ->has('token'));
+            ->has('token')
+            ->where('passwordRequirements.rules', PasswordRule::defaults()->toPasswordRulesString())
+            ->where('passwordRequirements.hints', ['At least 12 characters']));
 });
 
 it('may reset password', function (): void {
@@ -130,7 +133,10 @@ it('renders edit password page', function (): void {
         ->get(route('password.edit'));
 
     $response->assertOk()
-        ->assertInertia(fn ($page) => $page->component('user-password/edit'));
+        ->assertInertia(fn ($page) => $page
+            ->component('user-password/edit')
+            ->where('passwordRequirements.rules', PasswordRule::defaults()->toPasswordRulesString())
+            ->where('passwordRequirements.hints', ['At least 12 characters']));
 });
 
 it('may update password', function (): void {
