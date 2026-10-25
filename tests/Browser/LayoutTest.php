@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-it('keeps the app layout mounted when moving between settings pages', function (): void {
+it('keeps the app layout mounted when moving between settings tabs', function (): void {
     $this->actingAs(User::factory()->withoutTwoFactor()->create());
 
     $page = visit(route('user-profile.edit'));
@@ -16,8 +16,8 @@ it('keeps the app layout mounted when moving between settings pages', function (
 
     $page->assertScript("document.querySelector('[data-slot=\"sidebar-wrapper\"]').dataset.persisted", 'yes')
         ->assertSee('Password settings')
-        ->assertAttributeContains('a[href$="/settings/password"]', 'class', 'bg-muted')
-        ->assertAttributeDoesntContain('a[href$="/settings/profile"]', 'class', 'bg-muted')
+        ->assertAttribute('a[href$="/settings/password"]', 'aria-current', 'page')
+        ->assertAttributeMissing('a[href$="/settings/profile"]', 'aria-current')
         ->assertNoJavaScriptErrors();
 });
 

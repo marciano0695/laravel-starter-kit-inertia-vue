@@ -4,6 +4,7 @@ import { Form, Head, Link, usePage } from "@inertiajs/vue3";
 import type { BreadcrumbItem } from "@/types";
 import type { Inertia } from "@/wayfinder/types";
 
+import AppearanceTabs from "@/components/appearance-tabs.vue";
 import DeleteUser from "@/components/delete-user.vue";
 import HeadingSmall from "@/components/heading-small.vue";
 import InputError from "@/components/input-error.vue";
@@ -111,6 +112,11 @@ const user = page.props.auth.user!;
           </Transition>
         </div>
       </Form>
+    </div>
+
+    <div class="space-y-6">
+      <HeadingSmall title="Appearance" description="Update your account's appearance settings" />
+      <AppearanceTabs />
     </div>
 
     <DeleteUser />

@@ -5,9 +5,7 @@ import type { NavItem } from "@/types";
 
 import Heading from "@/components/heading.vue";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { toUrl, urlIsActive } from "@/lib/utils";
-import { edit as editAppearance } from "@/wayfinder/routes/appearance";
 import { edit as editPassword } from "@/wayfinder/routes/password";
 import { show } from "@/wayfinder/routes/two-factor";
 import { index as indexPasskeys } from "@/wayfinder/routes/user-passkey";
@@ -15,7 +13,7 @@ import { edit as editProfile } from "@/wayfinder/routes/user-profile";
 
 const page = usePage();
 
-const sidebarNavItems: NavItem[] = [
+const settingsNavItems: NavItem[] = [
   {
     title: "Profile",
     href: editProfile(),
@@ -28,7 +26,7 @@ const sidebarNavItems: NavItem[] = [
     title: "Two-Factor Auth",
     href: show(),
   },
-  // Passkeys are opt-in, so the link only shows while the feature is enabled.
+  // Passkeys are opt-in, so the tab only shows while the feature is enabled.
   ...(page.props.passkeyRoutes
     ? [
         {
@@ -37,10 +35,6 @@ const sidebarNavItems: NavItem[] = [
         },
       ]
     : []),
-  {
-    title: "Appearance",
-    href: editAppearance(),
-  },
 ];
 </script>
 
@@ -48,33 +42,23 @@ const sidebarNavItems: NavItem[] = [
   <div class="px-4 py-6">
     <Heading title="Settings" description="Manage your profile and account settings" />
 
-    <div class="flex flex-col lg:flex-row lg:space-x-12">
-      <aside class="w-full max-w-xl lg:w-48">
-        <nav class="flex flex-col space-y-1 space-x-0">
-          <Button
-            v-for="item in sidebarNavItems"
-            :key="toUrl(item.href)"
-            variant="ghost"
-            class="w-full justify-start"
-            :class="[{ 'bg-muted': urlIsActive(item.href, page.url) }]"
-            as-child
-          >
-            <Link :href="item.href">
-              <component :is="item.icon" class="h-4 w-4" />
-              {{ item.title }}
-            </Link>
-          </Button>
-        </nav>
-      </aside>
+    <nav aria-label="Settings" class="mb-8 flex flex-wrap gap-2">
+      <Button
+        v-for="item in settingsNavItems"
+        :key="toUrl(item.href)"
+        :variant="urlIsActive(item.href, page.url) ? 'default' : 'secondary'"
+        class="rounded-full px-5"
+        as-child
+      >
+        <Link :href="item.href" :aria-current="urlIsActive(item.href, page.url) ? 'page' : undefined">
+          {{ item.title }}
+        </Link>
+      </Button>
+    </nav>
 
-      <Separator class="my-6 lg:hidden" />
-
-      <div class="flex-1 md:max-w-2xl">
-        <!-- Gap rather than space-y, so pages can wrap their sections in a display: contents root -->
-        <section class="flex max-w-xl flex-col gap-12">
-          <slot />
-        </section>
-      </div>
-    </div>
+    <!-- Gap rather than space-y, so pages can wrap their sections in a display: contents root -->
+    <section class="flex max-w-xl flex-col gap-12">
+      <slot />
+    </section>
   </div>
 </template>
