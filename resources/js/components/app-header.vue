@@ -2,7 +2,7 @@
 import type { InertiaLinkProps } from "@inertiajs/vue3";
 
 import { Link, usePage } from "@inertiajs/vue3";
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "@lucide/vue";
+import { LayoutGrid, Menu, Search } from "@lucide/vue";
 import { computed } from "vue";
 
 import type { BreadcrumbItem, NavItem } from "@/types";
@@ -20,7 +20,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import UserMenuContent from "@/components/user-menu-content.vue";
 import { getInitials } from "@/composables/use-initials";
 import { toUrl, urlIsActive } from "@/lib/utils";
@@ -49,19 +48,6 @@ const mainNavItems: NavItem[] = [
     title: "Dashboard",
     href: dashboard(),
     icon: LayoutGrid,
-  },
-];
-
-const rightNavItems: NavItem[] = [
-  {
-    title: "Repository",
-    href: "https://github.com/laravel/vue-starter-kit",
-    icon: Folder,
-  },
-  {
-    title: "Documentation",
-    href: "https://laravel.com/docs/starter-kits#vue",
-    icon: BookOpen,
   },
 ];
 </script>
@@ -96,19 +82,6 @@ const rightNavItems: NavItem[] = [
                     {{ item.title }}
                   </Link>
                 </nav>
-                <div class="flex flex-col space-y-4">
-                  <a
-                    v-for="item in rightNavItems"
-                    :key="item.title"
-                    :href="toUrl(item.href)"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center space-x-2 text-sm font-medium"
-                  >
-                    <component :is="item.icon" v-if="item.icon" class="h-5 w-5" />
-                    <span>{{ item.title }}</span>
-                  </a>
-                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -149,26 +122,6 @@ const rightNavItems: NavItem[] = [
             <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
               <Search class="size-5 opacity-80 group-hover:opacity-100" />
             </Button>
-
-            <div class="hidden space-x-1 lg:flex">
-              <template v-for="item in rightNavItems" :key="item.title">
-                <TooltipProvider :delay-duration="0">
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button variant="ghost" size="icon" as-child class="group h-9 w-9 cursor-pointer">
-                        <a :href="toUrl(item.href)" target="_blank" rel="noopener noreferrer">
-                          <span class="sr-only">{{ item.title }}</span>
-                          <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
-                        </a>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{{ item.title }}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </template>
-            </div>
           </div>
 
           <DropdownMenu v-if="auth.user">
