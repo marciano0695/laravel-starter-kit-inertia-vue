@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserAvatarController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserEmailResetNotificationController;
 use App\Http\Controllers\UserEmailVerificationController;
@@ -30,6 +31,12 @@ Route::middleware('auth')->group(function (): void {
     Route::get('settings', fn () => to_route('user-profile.edit'));
     Route::get('settings/profile', [UserProfileController::class, 'edit'])->name('user-profile.edit');
     Route::patch('settings/profile', [UserProfileController::class, 'update'])->name('user-profile.update');
+
+    // User Avatar...
+    Route::put('settings/avatar', [UserAvatarController::class, 'update'])
+        ->middleware('throttle:6,1')
+        ->name('user-avatar.update');
+    Route::delete('settings/avatar', [UserAvatarController::class, 'destroy'])->name('user-avatar.destroy');
 
     // User Password...
     Route::get('settings/password', [UserPasswordController::class, 'edit'])->name('password.edit');
