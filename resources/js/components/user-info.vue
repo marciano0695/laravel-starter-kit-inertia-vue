@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { App } from "@/wayfinder/types";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useInitials } from "@/composables/use-initials";
 
 interface Props {
@@ -18,6 +18,7 @@ const { getInitials } = useInitials();
 
 <template>
   <Avatar class="h-8 w-8 overflow-hidden rounded-lg">
+    <AvatarImage v-if="user.avatar" :src="user.avatar" :alt="user.name" />
     <AvatarFallback class="rounded-lg text-black dark:text-white">
       {{ getInitials(user.name) }}
     </AvatarFallback>

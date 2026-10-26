@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head, Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 
 import type { BreadcrumbItem } from "@/types";
 import type { Inertia } from "@/wayfinder/types";
@@ -11,6 +12,7 @@ import InputError from "@/components/input-error.vue";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import UpdateAvatar from "@/components/update-avatar.vue";
 import AppLayout from "@/layouts/app-layout.vue";
 import SettingsLayout from "@/layouts/settings/layout.vue";
 import UserProfileController from "@/wayfinder/App/Http/Controllers/UserProfileController";
@@ -38,12 +40,14 @@ defineProps<Inertia.Pages.UserProfile.Edit>();
 
 const page = usePage();
 // The auth middleware guards this page, so a user is always present.
-const user = page.props.auth.user!;
+const user = computed(() => page.props.auth.user!);
 </script>
 
 <template>
   <div class="contents">
     <Head title="Profile settings" />
+
+    <UpdateAvatar :user="user" />
 
     <div class="flex flex-col space-y-6">
       <HeadingSmall title="Profile information" description="Update your name and email address" />

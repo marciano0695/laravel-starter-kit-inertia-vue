@@ -16,5 +16,18 @@ test('to array', function (): void {
             'created_at',
             'updated_at',
             'two_factor_confirmed_at',
+            'avatar',
         ]);
+});
+
+test('avatar is the public url of the stored picture', function (): void {
+    $user = User::factory()->create(['avatar_path' => 'avatars/picture.png']);
+
+    expect($user->avatar)->toBe(url('storage/avatars/picture.png'));
+});
+
+test('avatar is null without a stored picture', function (): void {
+    $user = User::factory()->create();
+
+    expect($user->avatar)->toBeNull();
 });
