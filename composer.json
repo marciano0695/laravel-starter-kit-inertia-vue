@@ -86,18 +86,27 @@
       "npx npm-check-updates -u"
     ],
     "lint": [
+      "@putenv XDEBUG_MODE=off",
       "rector",
       "pint --parallel",
       "npm run lint"
     ],
-    "test:type-coverage": "pest --type-coverage --memory-limit=1G --min=100.0",
+    "test:type-coverage": [
+      "@putenv XDEBUG_MODE=off",
+      "pest --type-coverage --memory-limit=1G --min=100.0"
+    ],
     "test:lint": [
+      "@putenv XDEBUG_MODE=off",
       "pint --parallel --test",
       "rector --dry-run",
       "npm run test:lint"
     ],
-    "test:unit": "pest --parallel --coverage --exactly=100.0",
+    "test:unit": [
+      "@putenv XDEBUG_MODE=coverage",
+      "pest --parallel --coverage --exactly=100.0"
+    ],
     "test:types": [
+      "@putenv XDEBUG_MODE=off",
       "phpstan --memory-limit=1G",
       "npm run test:types"
     ],
