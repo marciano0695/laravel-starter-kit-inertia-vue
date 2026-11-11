@@ -2,6 +2,8 @@
 name: testing-best-practices
 description: "Laravel test design and review. Use when selecting coverage, naming or structuring tests, choosing assertions or test data, isolating dependencies, testing HTTP or security boundaries, improving suite performance, or reviewing test value. Use framework guidance or search-docs for Pest and PHPUnit syntax."
 license: MIT
+model: sonnet
+effort: medium
 metadata:
   author: laravel
 ---
@@ -35,15 +37,14 @@ Read this section before you write a test.
 
 ## How to Apply
 
-1. Read the code under test. Read the tests in the same directory. Identify every decision in the code.
-2. Select every applicable branch in the rule index. Read every selected rule file.
+1. Read the code under test and the nearest existing test. Identify every decision in the code.
+2. Pick the one or two rule files that best match the change and read only those.
 3. Report each defect in the code before you write a test. Examples are a method with no body, a policy that no action calls, and a write action with no validation. Test the actual behavior. Report the defect to the user.
-4. Write the tests. Run the smallest set of tests that covers the change. The tests must pass.
-5. Check every applicable item in `rules/review.md` and every selected rule file. Resolve every mismatch before completion.
+4. Write the tests. Run only the tests you wrote or changed. They must pass.
 
 ## Rule Index
 
-Most changes need more than one rule file.
+Read `rules/review.md` only when asked to review tests.
 
 | Subject | Rule File |
 | --- | --- |
