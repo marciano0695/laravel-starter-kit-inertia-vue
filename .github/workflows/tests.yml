@@ -15,11 +15,12 @@ concurrency:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    # Pinned: Playwright's --with-deps only supports Ubuntu 22.04/24.04, and ubuntu-latest is moving to 26.04.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # No coverage driver: CI doesn't measure coverage, and Xdebug slows every test down.
       - name: Setup PHP
@@ -30,7 +31,7 @@ jobs:
           coverage: none
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "24"
           cache: npm
@@ -40,7 +41,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
@@ -66,11 +67,12 @@ jobs:
         run: echo "version=$(npm list playwright --depth=0 --json | jq -r '.dependencies.playwright.version')" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright Browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-chromium-${{ steps.playwright-version.outputs.version }}
+          # runner.os is just "Linux", so include the image version to avoid restoring a browser built for another distro.
+          key: ${{ runner.os }}-${{ env.ImageOS }}-playwright-chromium-${{ steps.playwright-version.outputs.version }}
 
       # The browser tests only use Chromium, so skip downloading Firefox and WebKit.
       - name: Install Playwright Browsers
@@ -88,11 +90,11 @@ jobs:
       - name: Browser Tests
         run: ./vendor/bin/pest --ci --testsuite=Browser
 
-      # Screenshots are only written when a browser test fails, so upload them only then.
+      # Screenshots are only written when a browser test fails; earlier steps can fail without producing any.
       - name: Store artifacts
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: browser-screenshots
-          path: |
-            tests/Browser/Screenshots
+          path: tests/Browser/Screenshots
+          if-no-files-found: ignore
