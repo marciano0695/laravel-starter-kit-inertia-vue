@@ -2051,12 +2051,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/wayfinder.git",
-                "reference": "be273f802dbcc3c9a4a411ab1eea7586b922f7c9"
+                "reference": "0ec921bf94e78ec69d9876081b87c406e98b0fd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/wayfinder/zipball/be273f802dbcc3c9a4a411ab1eea7586b922f7c9",
-                "reference": "be273f802dbcc3c9a4a411ab1eea7586b922f7c9",
+                "url": "https://api.github.com/repos/laravel/wayfinder/zipball/0ec921bf94e78ec69d9876081b87c406e98b0fd0",
+                "reference": "0ec921bf94e78ec69d9876081b87c406e98b0fd0",
                 "shasum": ""
             },
             "require": {
@@ -2072,7 +2072,8 @@
             "require-dev": {
                 "inertiajs/inertia-laravel": "^3.0",
                 "laravel/pint": "^1.21",
-                "orchestra/testbench": "^10.1|^11.0"
+                "orchestra/testbench": "^10.1|^11.0",
+                "pestphp/pest": "^3.0"
             },
             "type": "library",
             "extra": {
@@ -2109,7 +2110,8 @@
                 "issues": "https://github.com/laravel/wayfinder/issues",
                 "source": "https://github.com/laravel/wayfinder"
             },
-            "time": "2026-09-10T13:39:05+00:00"
+            "time": "2026-11-06T19:33:48+00:00",
+            "published-time": "2026-11-06T19:33:53+00:00"
         },
         {
             "name": "league/commonmark",
@@ -15229,5 +15231,5 @@
         "php": "^8.4.0"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
